@@ -10,10 +10,10 @@
 <h3>Clone the repository: </h3>
 
 ```
-git clone https://github.com/roberto-pg/dental-back
+git clone https://github.com/roberto-pg/dental-care-back
 ```
 ```
-cd dental-back
+cd dental-care-back
 ```
 ```
 yarn
