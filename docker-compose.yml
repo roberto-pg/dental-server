@@ -1,0 +1,57 @@
+version: "3"
+
+networks:
+  care:
+    driver: bridge
+
+services: 
+  postgres:
+    image: bitnami/postgresql:latest
+    container_name: care-postgres
+    volumes: 
+      - /home/rpg/Docker/care-postgres:/bitnami/postgresql
+    restart: always
+    environment:
+      - POSTGRESQL_POSTGRES_PASSWORD=${DB_PASS_ROOT}
+      - POSTGRESQL_DATABASE=${DB_NAME} 
+      - POSTGRESQL_USERNAME=${DB_USER}
+      - POSTGRESQL_PASSWORD=${DB_PASS}
+    networks: 
+      - care
+
+  nginx:
+    image: nginx
+    container_name: care-nginx
+    ports:
+      - "8181:80"
+    volumes:
+      - /home/rpg/Docker/nginx/html:/usr/share/nginx/html
+    restart: always
+    networks:
+      - care
+       
+  app:
+    image: node:alpine
+    container_name: care-server
+    ports:
+      - "3335:3335"
+    working_dir: /usr/app
+    volumes: 
+      - .:/usr/app
+      - /home/rpg/Docker/nginx/html:/usr/app/public/images
+    command: sh -c "yarn && yarn build && yarn start" 
+    restart: always
+    networks: 
+      - care
+
+  redis:
+    image: bitnami/redis:latest
+    container_name: care-redis
+    environment:
+      - ALLOW_EMPTY_PASSWORD=no
+      - REDIS_PASSWORD=${REDIS_PASS}
+    restart: "always"
+    networks: 
+      - care
+
+    
