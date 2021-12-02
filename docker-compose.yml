@@ -23,7 +23,7 @@ services:
     image: nginx
     container_name: care-nginx
     ports:
-      - "8181:80"
+      - "8282:80"
     volumes:
       - /home/rpg/Docker/nginx/html:/usr/share/nginx/html
     restart: always
