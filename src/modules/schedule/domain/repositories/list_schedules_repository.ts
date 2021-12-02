@@ -1,4 +1,5 @@
 type ScheduleModel = {
+  id: string
   doctor_id: string
   doctor_name: string
   specialty: string

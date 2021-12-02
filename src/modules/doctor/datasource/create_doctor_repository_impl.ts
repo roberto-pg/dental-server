@@ -20,6 +20,7 @@ class CreateDoctorRepositoryImpl implements ICreateDoctorRepository {
     image_url: string,
     bio: string
   ): Promise<{
+    id: string
     name: string
     specialty: string
     image_url: string

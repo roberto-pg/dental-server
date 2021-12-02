@@ -37,7 +37,16 @@ class CreateDoctorUseCase {
         image_url,
         bio
       )
-      return doctor
+
+      const serializedDoctor = {
+        id: doctor.id,
+        name: doctor.name,
+        specialty: doctor.specialty,
+        imageUrl: doctor.image_url,
+        bio: doctor.bio
+      }
+
+      return serializedDoctor
     } catch (error) {
       throw customException('Falha para cadastrar doutor')
     }

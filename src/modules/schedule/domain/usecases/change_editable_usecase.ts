@@ -23,7 +23,7 @@ class ChangeEditableUseCase {
     const instanceUseCase = container.resolve(ChangeEditableUseCase)
 
     if (!id) throw customException('Informe o ID do agendamento')
-    console.log(id)
+
     if (typeof id !== 'string')
       throw customException('O Id do agendamento deve ser uma string')
 

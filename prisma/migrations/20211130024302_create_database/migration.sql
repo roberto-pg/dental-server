@@ -20,6 +20,7 @@ CREATE TABLE "doctors" (
     "specialty" TEXT NOT NULL,
     "image_url" TEXT NOT NULL,
     "bio" TEXT NOT NULL,
+    "active" BOOLEAN DEFAULT true,
 
     CONSTRAINT "doctors_pkey" PRIMARY KEY ("id")
 );

@@ -24,9 +24,9 @@ class ListUserByIdRepositoryImpl implements IListUserByIdRepository {
     active: boolean
     admin: boolean
   }> {
-    const instanceReṕository = container.resolve(ListUserByIdRepositoryImpl)
+    const instanceRepository = container.resolve(ListUserByIdRepositoryImpl)
 
-    const user = await instanceReṕository._prismaServer
+    const user = await instanceRepository._prismaServer
       .connectPrisma()
       .user.findUnique({
         where: {

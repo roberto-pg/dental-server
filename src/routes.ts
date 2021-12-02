@@ -29,6 +29,7 @@ import { ListAppointmentByCpfController } from './modules/schedule/controller/li
 import { CreateAppointmentController } from './modules/schedule/controller/create_appointment_controller'
 import { ChangeEditableController } from './modules/schedule/controller/change_editable_controller'
 import { RemoveAppointmentController } from './modules/schedule/controller/remove_appointment_controller'
+import { ChangeDoctorStatusController } from './modules/doctor/controller/change_doctor_status_controller'
 const multer = require('multer')
 const multerConfig = require('./middleware/multer')
 
@@ -56,6 +57,10 @@ const removeUserController = container.get<RemoveUserController>(
 const changeStatusController = container.get<ChangeStatusController>(
   TYPES.ChangeStatusController
 )
+const changeDoctorStatusController =
+  container.get<ChangeDoctorStatusController>(
+    TYPES.ChangeDoctorStatusController
+  )
 const changeNameOrEmailController = container.get<ChangeNameOrEmailController>(
   TYPES.ChangeNameOrEmailController
 )
@@ -131,9 +136,9 @@ router.post('/logout/:id', protectedRoute, logoutUserController.handle)
 
 router.get('/users/:id', protectedRoute, listUserByIdController.handle)
 
-router.delete('/delete-users/:id', protectedRoute, removeUserController.handle)
+router.delete('/delete-user/:id', protectedRoute, removeUserController.handle)
 
-router.patch('/users-active', protectedRoute, changeStatusController.handle)
+router.patch('/user-active', protectedRoute, changeStatusController.handle)
 
 router.patch(
   '/users/name-or-email',
@@ -172,6 +177,12 @@ router.get(
 
 router.get('/doctor-id/:id', protectedRoute, listDoctorsByIdController.handle)
 
+router.patch(
+  '/doctor-active',
+  protectedRoute,
+  changeDoctorStatusController.handle
+)
+
 router.post(
   '/schedules/:doctorId',
   protectedRoute,
@@ -205,7 +216,7 @@ router.delete(
 )
 
 router.get(
-  '/appointment-by-cpf',
+  '/appointments-by-cpf',
   protectedRoute,
   listAppointmentByCpfController.handle
 )

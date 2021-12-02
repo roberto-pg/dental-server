@@ -109,6 +109,10 @@ import { RemoveAppointmentUseCase } from '../../modules/schedule/domain/usecases
 import { RemoveAppointmentController } from '../../modules/schedule/controller/remove_appointment_controller'
 import { PrismaServer } from '../prisma/prisma_server'
 import IHttpService from '../prisma/http_service'
+import { IChangeDoctorStatusRepository } from '../../modules/doctor/domain/repositories/change_doctor_status_repository'
+import { ChangeDoctorStatusRepositoryImpl } from '../../modules/doctor/datasource/change_doctor_status_repository_impl'
+import { ChangeDoctorStatusUseCase } from '../../modules/doctor/domain/usecases/change_doctor_status_usecase'
+import { ChangeDoctorStatusController } from '../../modules/doctor/controller/change_doctor_status_controller'
 
 const container = new Container()
 
@@ -136,6 +140,9 @@ container
 container
   .bind<IChangeStatusRepository>(TYPES.ChangeStatusRepositoryImpl)
   .to(ChangeStatusRepositoryImpl)
+container
+  .bind<IChangeDoctorStatusRepository>(TYPES.ChangeDoctorStatusRepositoryImpl)
+  .to(ChangeDoctorStatusRepositoryImpl)
 container
   .bind<IChangeNameOrEmailRepository>(TYPES.ChangeNameOrEmailRepositoryImpl)
   .to(ChangeNameOrEmailRepositoryImpl)
@@ -217,6 +224,9 @@ container
   .bind<ChangeStatusUseCase>(TYPES.ChangeStatusUseCase)
   .to(ChangeStatusUseCase)
 container
+  .bind<ChangeDoctorStatusUseCase>(TYPES.ChangeDoctorStatusUseCase)
+  .to(ChangeDoctorStatusUseCase)
+container
   .bind<ChangeNameOrEmailUseCase>(TYPES.ChangeNameOrEmailUseCase)
   .to(ChangeNameOrEmailUseCase)
 container
@@ -294,6 +304,9 @@ container
 container
   .bind<ChangeStatusController>(TYPES.ChangeStatusController)
   .to(ChangeStatusController)
+container
+  .bind<ChangeDoctorStatusController>(TYPES.ChangeDoctorStatusController)
+  .to(ChangeDoctorStatusController)
 container
   .bind<ChangeNameOrEmailController>(TYPES.ChangeNameOrEmailController)
   .to(ChangeNameOrEmailController)

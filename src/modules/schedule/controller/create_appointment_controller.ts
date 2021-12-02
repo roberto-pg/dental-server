@@ -7,6 +7,7 @@ import container from '../../../shared/ioc/inversify_config'
 
 type AppointmentType = {
   id: string
+  patientName: string
   cpf: string
   plain: string
   card: string

@@ -1,4 +1,5 @@
 type DoctorModel = {
+  id: string
   name: string
   specialty: string
   image_url: string

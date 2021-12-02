@@ -16,6 +16,7 @@ class CreateAppointmentRepositoryImpl implements ICreateAppointmentRepository {
 
   async execute(
     id: string,
+    patientName: string,
     cpf: string,
     plain: string,
     card: string,
@@ -32,6 +33,7 @@ class CreateAppointmentRepositoryImpl implements ICreateAppointmentRepository {
           id: id
         },
         data: {
+          patient_name: patientName,
           cpf: cpf,
           plain: plain,
           card: card,

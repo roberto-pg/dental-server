@@ -16,6 +16,7 @@ class ListSchedulesRepositoryImpl implements IListSchedulesRepository {
 
   async execute(): Promise<
     {
+      id: string
       doctor_id: string
       doctor_name: string
       specialty: string

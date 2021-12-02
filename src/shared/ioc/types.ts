@@ -9,6 +9,9 @@ const TYPES = {
   ListUserByIdRepositoryImpl: Symbol.for('ListUserByIdRepositoryImpl'),
   RemoveUserRepositoryImpl: Symbol.for('RemoveUserRepositoryImpl'),
   ChangeStatusRepositoryImpl: Symbol.for('ChangeStatusRepositoryImpl'),
+  ChangeDoctorStatusRepositoryImpl: Symbol.for(
+    'ChangeDoctorStatusRepositoryImpl'
+  ),
   ChangeNameOrEmailRepositoryImpl: Symbol.for(
     'ChangeNameOrEmailRepositoryImpl'
   ),
@@ -53,6 +56,7 @@ const TYPES = {
   ListUserByIdUseCase: Symbol.for('ListUserByIdUseCase'),
   RemoveUserUseCase: Symbol.for('RemoveUserUseCase'),
   ChangeStatusUseCase: Symbol.for('ChangeStatusUseCase'),
+  ChangeDoctorStatusUseCase: Symbol.for('ChangeDoctorStatusUseCase'),
   ChangeNameOrEmailUseCase: Symbol.for('ChangeNameOrEmailUseCase'),
   ChangePlainAndCardUseCase: Symbol.for('ChangePlainAndCardUseCase'),
   ChangePasswordUseCase: Symbol.for('ChangePasswordUseCase'),
@@ -83,6 +87,7 @@ const TYPES = {
   ListUserByIdController: Symbol.for('ListUserByIdController'),
   RemoveUserController: Symbol.for('RemoveUserController'),
   ChangeStatusController: Symbol.for('ChangeStatusController'),
+  ChangeDoctorStatusController: Symbol.for('ChangeDoctorStatusController'),
   ChangeNameOrEmailController: Symbol.for('ChangeNameOrEmailController'),
   ChangePlainAndCardController: Symbol.for('ChangePlainAndCardController'),
   ChangePasswordController: Symbol.for('ChangePasswordController'),

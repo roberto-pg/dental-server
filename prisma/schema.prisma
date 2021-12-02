@@ -27,6 +27,7 @@ model Doctor {
   specialty String
   image_url String
   bio       String
+  active   Boolean?    @default(true)
   Schedule  Schedule[]
 
   @@map("doctors")
@@ -34,9 +35,9 @@ model Doctor {
 
 model Schedule {
   id           String   @id @default(uuid())
-  doctor_id    String
+  doctor_id    String   
   doctor_name  String
-  specialty    String
+  specialty    String   
   month_day    String?
   week_day     String?
   hour         String?
@@ -46,7 +47,7 @@ model Schedule {
   scheduled    Boolean? @default(false)
   card         String?
   editable     Boolean? @default(false)
-  Doctor       Doctor   @relation(fields: [doctor_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  Doctor       Doctor   @relation(fields: [doctor_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@map("schedules")
 }

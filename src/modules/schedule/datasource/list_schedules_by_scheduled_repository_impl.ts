@@ -18,6 +18,7 @@ class ListSchedulesByScheduledRepositoryImpl
 
   async execute(scheduledBool: boolean): Promise<
     {
+      id: string
       doctor_id: string
       doctor_name: string
       specialty: string

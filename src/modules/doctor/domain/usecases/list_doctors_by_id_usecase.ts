@@ -22,16 +22,25 @@ class ListDoctorsByIdUseCase {
   async call(id: string) {
     const instanceUseCase = container.resolve(ListDoctorsByIdUseCase)
 
-    const doctor = await instanceUseCase._validate.verifyDoctorId(id)
+    const doctorId = await instanceUseCase._validate.verifyDoctorId(id)
 
-    if (!doctor) {
+    if (!doctorId) {
       throw customException('Doutor não encontrado')
     }
 
     try {
-      const doctors = await instanceUseCase._repository.execute(id)
+      const doctor = await instanceUseCase._repository.execute(id)
 
-      return doctors
+      const serializedDoctor = {
+        id: doctor.id,
+        name: doctor.name,
+        specialty: doctor.specialty,
+        imageUrl: doctor.image_url,
+        bio: doctor.bio,
+        active: doctor.active
+      }
+
+      return serializedDoctor
     } catch (error) {
       throw customException('Erro na busca por Id')
     }

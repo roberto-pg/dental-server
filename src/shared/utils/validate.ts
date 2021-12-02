@@ -94,7 +94,7 @@ class Validate {
     return schedule
   }
 
-  async verifyAppointmentId(id: string, scheduled: boolean) {
+  async verifyAppointmentId(id: string) {
     const instanceValidate = container.resolve(Validate)
 
     const appointment = await instanceValidate._prismaServer
@@ -102,10 +102,70 @@ class Validate {
       .schedule.findFirst({
         where: {
           id: id,
-          scheduled: scheduled
+          scheduled: false
         }
       })
+
     return appointment
+  }
+
+  async verifyPlain(cpf: string, plain: string) {
+    const instanceValidate = container.resolve(Validate)
+
+    const user = await instanceValidate._prismaServer
+      .connectPrisma()
+      .user.findFirst({
+        where: {
+          cpf,
+          plain
+        }
+      })
+
+    return user
+  }
+
+  async verifyCard(cpf: string, card: string) {
+    const instanceValidate = container.resolve(Validate)
+
+    const user = await instanceValidate._prismaServer
+      .connectPrisma()
+      .user.findFirst({
+        where: {
+          cpf,
+          card
+        }
+      })
+
+    return user
+  }
+
+  async userIsActive(cpf: string) {
+    const instanceValidate = container.resolve(Validate)
+
+    const user = await instanceValidate._prismaServer
+      .connectPrisma()
+      .user.findFirst({
+        where: {
+          cpf,
+          active: true
+        }
+      })
+
+    return user
+  }
+
+  async getPatientName(cpf: string) {
+    const instanceValidate = container.resolve(Validate)
+
+    const user = await instanceValidate._prismaServer
+      .connectPrisma()
+      .user.findUnique({
+        where: {
+          cpf
+        }
+      })
+
+    return user.name
   }
 
   async schedulesAlreadyExists(

@@ -43,10 +43,7 @@ class ListSchedulesByDoctorRepositoryImpl
       .connectPrisma()
       .schedule.findMany({
         where: {
-          doctor_id: doctorId,
-          month_day: {
-            gte: currentDay.toISOString()
-          }
+          doctor_id: doctorId
         },
         orderBy: [
           {

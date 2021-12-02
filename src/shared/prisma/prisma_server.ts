@@ -6,7 +6,11 @@ import IHttpService from './http_service'
 @injectable()
 class PrismaServer implements IHttpService {
   connectPrisma() {
-    return new PrismaClient()
+    if (!global.prisma) {
+      global.prisma = new PrismaClient()
+    }
+
+    return global.prisma
   }
 }
 

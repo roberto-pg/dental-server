@@ -35,8 +35,7 @@ class CreateAppointmentUseCase {
     if (!id) throw customException('Informe o ID do agendamento')
 
     const appointmentId = await instanceUseCase._validate.verifyAppointmentId(
-      id,
-      scheduled
+      id
     )
 
     if (!appointmentId) throw customException('Agendamento não disponível')
@@ -53,15 +52,34 @@ class CreateAppointmentUseCase {
 
     if (!plain) throw customException('Informe o convênio do beneficiário')
 
+    if (plain === 'Particular' && card !== '')
+      customException('Paciente particular não usa código de beneficiário')
+
     if (plain !== 'Particular' && !card)
       throw customException('Informe o código do beneficiário')
 
-    if (plain === 'Particular' && card !== '')
-      customException('Paciente particular não usa código de beneficiário')
+    const validPlain = await instanceUseCase._validate.verifyPlain(cpf, plain)
+
+    if (!validPlain) throw customException('O convênio informado não confere')
+
+    const validCard = await instanceUseCase._validate.verifyCard(cpf, card)
+
+    if (!validCard)
+      throw customException('Número de beneficiário não encontrado')
+
+    const userActive = await instanceUseCase._validate.userIsActive(cpf)
+
+    if (!userActive)
+      throw customException(
+        'O agendamento está desabilitado porque o usuário não está ativo. Entre em contato com sua clínica.'
+      )
+
+    const patientName = await instanceUseCase._validate.getPatientName(cpf)
 
     try {
       const appointments = await instanceUseCase._repository.execute(
         id,
+        patientName,
         cpf,
         plain,
         card,

@@ -1,8 +1,10 @@
 # Dental Care Api
 ### Restfull API for the Dental Care app
 <br/>
-<br/>
 
+### This Api uses a Nginx server for the images of dentists and Redis to store the authentication token in a blacklist when the user logs out of the application
+<br/>
+<br/>
 
 ## Installation:
 <br/>
@@ -92,9 +94,6 @@ docker network inspect <network id>
 ```
 yarn prisma migrate dev
 ```
-
-<br/>
-<h3>This Api uses a Nginx server for the images of dentists and Redis to store the authentication token in a blacklist when the user logs out of the application</h3>
 
 <br/>
 <br/>

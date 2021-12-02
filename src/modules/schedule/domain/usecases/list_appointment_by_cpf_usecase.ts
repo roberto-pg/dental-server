@@ -36,12 +36,30 @@ class ListAppointmentByCpfUseCase {
       const currentDay = new Date()
       currentDay.setHours(0, 0, 0, 0)
 
-      const schedulings = await instanceUseCase._repository.execute(
+      const appointments = await instanceUseCase._repository.execute(
         cpf,
         currentDay
       )
 
-      return schedulings
+      const serializedAppointments = appointments.map((appointment) => {
+        return {
+          id: appointment.id,
+          doctorId: appointment.doctor_id,
+          doctorName: appointment.doctor_name,
+          specialty: appointment.specialty,
+          monthDay: appointment.month_day,
+          weekDay: appointment.week_day,
+          hour: appointment.hour,
+          patientName: appointment.patient_name,
+          cpf: appointment.cpf,
+          plain: appointment.plain,
+          card: appointment.card,
+          scheduled: appointment.scheduled,
+          editable: appointment.editable
+        }
+      })
+
+      return serializedAppointments
     } catch (error) {
       throw customException('Falha para buscar os agendamentos')
     }

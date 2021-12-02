@@ -16,10 +16,15 @@ class ListDoctorsBySpecialtyRepositoryImpl
     this._prismaServer = prismaServer
   }
 
-  async execute(
-    specialty: string
-  ): Promise<
-    { name: string; specialty: string; image_url: string; bio: string }[]
+  async execute(specialty: string): Promise<
+    {
+      id: string
+      name: string
+      specialty: string
+      image_url: string
+      bio: string
+      active: boolean
+    }[]
   > {
     const instanceRepository = container.resolve(
       ListDoctorsBySpecialtyRepositoryImpl
