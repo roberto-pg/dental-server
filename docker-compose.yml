@@ -39,7 +39,7 @@ services:
     volumes: 
       - .:/usr/app
       - /home/rpg/Docker/nginx/html:/usr/app/public/images
-    command: sh -c "yarn install --production && yarn build && yarn start" 
+    command: sh -c "yarn && yarn build && yarn start" 
     restart: always
     networks: 
       - care
