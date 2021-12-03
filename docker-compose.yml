@@ -31,7 +31,7 @@ services:
       - care
        
   app:
-    image: node:alpine
+    image: node:current-alpine
     container_name: care-server
     ports:
       - "3335:3335"
