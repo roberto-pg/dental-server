@@ -50,6 +50,15 @@ class CreateScheduleUseCase {
     timeToSchedule: []
   ) {
     const instanceUseCase = container.resolve(CreateScheduleUseCase)
+
+    const activeDoctor = await instanceUseCase._validate.doctorIsActive(
+      doctorId
+    )
+
+    if (!activeDoctor) {
+      customException('A agenda está desativada')
+    }
+
     let parsedMonthDay: string
 
     const newSchedules = timeToSchedule.map((scheduleItem: ScheduleModel) => {

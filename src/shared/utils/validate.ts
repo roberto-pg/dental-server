@@ -154,6 +154,21 @@ class Validate {
     return user
   }
 
+  async doctorIsActive(id: string) {
+    const instanceValidate = container.resolve(Validate)
+
+    const doctor = await instanceValidate._prismaServer
+      .connectPrisma()
+      .doctor.findFirst({
+        where: {
+          id,
+          active: true
+        }
+      })
+
+    return doctor
+  }
+
   async getPatientName(cpf: string) {
     const instanceValidate = container.resolve(Validate)
 
