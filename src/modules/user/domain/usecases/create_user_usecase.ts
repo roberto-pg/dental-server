@@ -1,23 +1,17 @@
-import 'reflect-metadata'
-import { injectable, inject } from 'inversify'
 import bcrypt from 'bcryptjs'
 import { customException } from '../../../../shared/errors/custom_exception'
 import { DataChecker } from '../../../../shared/utils/data_checker'
-import { TYPES } from '../../../../shared/ioc/types'
-import { ICreateUserRepository } from '../repositories/create_user_repository'
-import container from '../../../../shared/ioc/inversify_config'
 import { Validate } from '../../../../shared/utils/validate'
+import { ICreateUserRepository } from '../repositories/create_user_repository'
 
-@injectable()
 class CreateUserUseCase {
   private _repository: ICreateUserRepository
   private _dataChecker: DataChecker
   private _validate: Validate
   constructor(
-    @inject(TYPES.CreateUserRepositoryImpl)
-    private readonly repository: ICreateUserRepository,
-    @inject(TYPES.DataChecker) private dataChecker: DataChecker,
-    @inject(TYPES.Validate) private readonly validate: Validate
+    repository: ICreateUserRepository,
+    dataChecker: DataChecker,
+    validate: Validate
   ) {
     this._repository = repository
     this._dataChecker = dataChecker
@@ -34,31 +28,29 @@ class CreateUserUseCase {
     active: boolean,
     admin: boolean
   ) {
-    const instanceUseCase = container.resolve(CreateUserUseCase)
-
     if (!name) {
       throw customException('Informe o nome de usuário')
     }
 
-    if (instanceUseCase._dataChecker.nameChecker(name) === false) {
+    if (this._dataChecker.nameChecker(name) === false) {
       throw customException('O campo de nome só aceita letras')
     }
 
-    if (instanceUseCase._dataChecker.emailChecker(email) === false) {
+    if (this._dataChecker.emailChecker(email) === false) {
       throw customException('Email inválido')
     }
 
-    const emailExists = await instanceUseCase._validate.verifyUserEmail(email)
+    const emailExists = await this._validate.verifyUserEmail(email)
 
     if (emailExists != null) {
       throw customException('O email já existe')
     }
 
-    if (instanceUseCase._dataChecker.cpfChecker(cpf) === false) {
+    if (this._dataChecker.cpfChecker(cpf) === false) {
       throw customException('Cpf inválido')
     }
 
-    const cpfExists = await instanceUseCase._validate.verifyUserCpf(cpf)
+    const cpfExists = await this._validate.verifyUserCpf(cpf)
 
     if (cpfExists) {
       throw customException('O CPF já existe')
@@ -81,7 +73,7 @@ class CreateUserUseCase {
 
     try {
       const hashPassword = await bcrypt.hash(password, 10)
-      const user = await instanceUseCase._repository.execute(
+      const user = await this._repository.execute(
         name,
         email,
         cpf,

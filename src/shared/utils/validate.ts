@@ -1,8 +1,4 @@
-import 'reflect-metadata'
-import { injectable, inject } from 'inversify'
 import IHttpService from '../prisma/http_service'
-import { TYPES } from '../ioc/types'
-import container from '../ioc/inversify_config'
 
 type ScheduleModel = {
   id?: string
@@ -20,71 +16,50 @@ type ScheduleModel = {
   editable: boolean
 }
 
-@injectable()
 class Validate {
   private _prismaServer: IHttpService
-  constructor(
-    @inject(TYPES.PrismaServer) private readonly prismaServer: IHttpService
-  ) {
+  constructor(prismaServer: IHttpService) {
     this._prismaServer = prismaServer
   }
 
   async verifyUserEmail(email: string) {
-    const instanceValidate = container.resolve(Validate)
-
-    const user = await instanceValidate._prismaServer
-      .connectPrisma()
-      .user.findUnique({
-        where: {
-          email: email
-        }
-      })
+    const user = await this._prismaServer.connectPrisma().user.findUnique({
+      where: {
+        email: email
+      }
+    })
     return user
   }
 
   async verifyUserCpf(cpf: string) {
-    const instanceValidate = container.resolve(Validate)
-
-    const user = await instanceValidate._prismaServer
-      .connectPrisma()
-      .user.findUnique({
-        where: {
-          cpf: cpf
-        }
-      })
+    const user = await this._prismaServer.connectPrisma().user.findUnique({
+      where: {
+        cpf: cpf
+      }
+    })
     return user
   }
 
   async verifyUserId(id: string) {
-    const instanceValidate = container.resolve(Validate)
-
-    const user = await instanceValidate._prismaServer
-      .connectPrisma()
-      .user.findUnique({
-        where: {
-          id: id
-        }
-      })
+    const user = await this._prismaServer.connectPrisma().user.findUnique({
+      where: {
+        id: id
+      }
+    })
     return user
   }
 
   async verifyDoctorId(id: string) {
-    const instanceValidate = container.resolve(Validate)
-
-    const doctor = await instanceValidate._prismaServer
-      .connectPrisma()
-      .doctor.findUnique({
-        where: {
-          id: id
-        }
-      })
+    const doctor = await this._prismaServer.connectPrisma().doctor.findUnique({
+      where: {
+        id: id
+      }
+    })
     return doctor
   }
 
   async verifyScheduleId(id: string) {
-    const instanceValidate = container.resolve(Validate)
-
-    const schedule = await instanceValidate._prismaServer
+    const schedule = await this._prismaServer
       .connectPrisma()
       .schedule.findUnique({
         where: {
@@ -95,9 +70,7 @@ class Validate {
   }
 
   async verifyAppointmentId(id: string) {
-    const instanceValidate = container.resolve(Validate)
-
-    const appointment = await instanceValidate._prismaServer
+    const appointment = await this._prismaServer
       .connectPrisma()
       .schedule.findFirst({
         where: {
@@ -110,75 +83,55 @@ class Validate {
   }
 
   async verifyPlain(cpf: string, plain: string) {
-    const instanceValidate = container.resolve(Validate)
-
-    const user = await instanceValidate._prismaServer
-      .connectPrisma()
-      .user.findFirst({
-        where: {
-          cpf,
-          plain
-        }
-      })
+    const user = await this._prismaServer.connectPrisma().user.findFirst({
+      where: {
+        cpf,
+        plain
+      }
+    })
 
     return user
   }
 
   async verifyCard(cpf: string, card: string) {
-    const instanceValidate = container.resolve(Validate)
-
-    const user = await instanceValidate._prismaServer
-      .connectPrisma()
-      .user.findFirst({
-        where: {
-          cpf,
-          card
-        }
-      })
+    const user = await this._prismaServer.connectPrisma().user.findFirst({
+      where: {
+        cpf,
+        card
+      }
+    })
 
     return user
   }
 
   async userIsActive(cpf: string) {
-    const instanceValidate = container.resolve(Validate)
-
-    const user = await instanceValidate._prismaServer
-      .connectPrisma()
-      .user.findFirst({
-        where: {
-          cpf,
-          active: true
-        }
-      })
+    const user = await this._prismaServer.connectPrisma().user.findFirst({
+      where: {
+        cpf,
+        active: true
+      }
+    })
 
     return user
   }
 
   async doctorIsActive(id: string) {
-    const instanceValidate = container.resolve(Validate)
-
-    const doctor = await instanceValidate._prismaServer
-      .connectPrisma()
-      .doctor.findFirst({
-        where: {
-          id,
-          active: true
-        }
-      })
+    const doctor = await this._prismaServer.connectPrisma().doctor.findFirst({
+      where: {
+        id,
+        active: true
+      }
+    })
 
     return doctor
   }
 
   async getPatientName(cpf: string) {
-    const instanceValidate = container.resolve(Validate)
-
-    const user = await instanceValidate._prismaServer
-      .connectPrisma()
-      .user.findUnique({
-        where: {
-          cpf
-        }
-      })
+    const user = await this._prismaServer.connectPrisma().user.findUnique({
+      where: {
+        cpf
+      }
+    })
 
     return user.name
   }
@@ -188,11 +141,9 @@ class Validate {
     parsedMonthDay: string,
     doctor_id: string
   ) {
-    const instanceValidate = container.resolve(Validate)
-
     const scheduleResponse = []
     for (let i = 0; i < newSchedules.length; i++) {
-      const result = await instanceValidate._prismaServer
+      const result = await this._prismaServer
         .connectPrisma()
         .schedule.findMany({
           where: {

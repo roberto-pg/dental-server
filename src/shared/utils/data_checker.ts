@@ -1,7 +1,3 @@
-import 'reflect-metadata'
-import { injectable } from 'inversify'
-
-@injectable()
 class DataChecker {
   cpfChecker(cpf: String) {
     let soma = 0
