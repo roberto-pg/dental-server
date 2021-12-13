@@ -15,6 +15,15 @@ import { AuthenticateAdminUseCase } from './modules/auth/domain/usecases/authent
 import { LogoutUserRepositoryImpl } from './modules/auth/datasource/logout_user_repository_impl'
 import { LogoutUserUseCase } from './modules/auth/domain/usecases/logout_user_usecase'
 import { LogoutUserController } from './modules/auth/controller/logout_user_controller'
+import { ListUsersRepositoryImpl } from './modules/user/datasource/list_users_repository.impl'
+import { ListUsersUseCase } from './modules/user/domain/usecases/list_users_usecase'
+import { ListUsersController } from './modules/user/controller/list_users_controller'
+import { ListUserByIdRepositoryImpl } from './modules/user/datasource/list_user_by_id_repository_impl'
+import { ListUserByIdUseCase } from './modules/user/domain/usecases/list_user_by_id_usecase'
+import { ListUserByIdController } from './modules/user/controller/list_user_by_id_controller'
+import { RemoveUserRepositoryImpl } from './modules/user/datasource/remove_user_repository_impl'
+import { RemoveUserUseCase } from './modules/user/domain/usecases/remove_user_usecase'
+import { RemoveUserController } from './modules/user/controller/remove_user_controller'
 // const multer = require('multer')
 // const multerConfig = require('./middleware/multer')
 
@@ -32,6 +41,9 @@ const authenticateAdminRepository = new AuthenticateAdminRepositoryImpl(
   prismaServer
 )
 const logoutUserRepository = new LogoutUserRepositoryImpl(prismaServer)
+const listUsersRepository = new ListUsersRepositoryImpl(prismaServer)
+const listUserByIdRepository = new ListUserByIdRepositoryImpl(prismaServer)
+const removeUserRepository = new RemoveUserRepositoryImpl(prismaServer)
 
 const createUserUseCase = new CreateUserUseCase(
   createUserRepository,
@@ -49,6 +61,12 @@ const authenticateAdminUseCase = new AuthenticateAdminUseCase(
   dataChecker
 )
 const logoutUserUseCase = new LogoutUserUseCase(logoutUserRepository, validate)
+const listUsersUseCase = new ListUsersUseCase(listUsersRepository)
+const listUserByIdUseCase = new ListUserByIdUseCase(
+  listUserByIdRepository,
+  validate
+)
+const removeUserUseCase = new RemoveUserUseCase(removeUserRepository, validate)
 
 const authenticateUserController = new AuthenticateUserController(
   authenticateUserUseCase
@@ -58,18 +76,18 @@ const authenticateAdminController = new AuthenticateAdminController(
   authenticateAdminUseCase
 )
 const logoutUserController = new LogoutUserController(logoutUserUseCase)
+const listUsersController = new ListUsersController(listUsersUseCase)
+const listUserByIdController = new ListUserByIdController(listUserByIdUseCase)
+const removeUserController = new RemoveUserController(removeUserUseCase)
 
 router.post('/authenticate-user', authenticateUserController.handle)
 router.post('/authenticate-admin', authenticateAdminController.handle)
 router.post('/logout/:id', protectedRoute, logoutUserController.handle)
 
 router.post('/users', createUserController.handle)
-
-// router.get('/users', protectedRoute, listUsersController.handle)
-
-// router.get('/users/:id', protectedRoute, listUserByIdController.handle)
-
-// router.delete('/delete-user/:id', protectedRoute, removeUserController.handle)
+router.get('/users', protectedRoute, listUsersController.handle)
+router.get('/users/:id', protectedRoute, listUserByIdController.handle)
+router.delete('/delete-user/:id', protectedRoute, removeUserController.handle)
 
 // router.patch('/user-active', protectedRoute, changeStatusController.handle)
 
