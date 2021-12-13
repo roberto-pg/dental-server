@@ -1,9 +1,5 @@
-import 'reflect-metadata'
-import { injectable, inject } from 'inversify'
 import { ICreateScheduleRepository } from '../repositories/create_schedule_repository'
 import { Validate } from '../../../../shared/utils/validate'
-import { TYPES } from '../../../../shared/ioc/types'
-import container from '../../../../shared/ioc/inversify_config'
 import { customException } from '../../../../shared/errors/custom_exception'
 
 type ScheduleModel = {
@@ -22,14 +18,12 @@ type ScheduleModel = {
   editable: boolean
 }
 
-@injectable()
 class CreateScheduleUseCase {
   private _repository: ICreateScheduleRepository
   private _validate: Validate
   constructor(
-    @inject(TYPES.CreateScheduleRepositoryImpl)
-    private readonly repository: ICreateScheduleRepository,
-    @inject(TYPES.Validate) private readonly validate: Validate
+    readonly repository: ICreateScheduleRepository,
+    readonly validate: Validate
   ) {
     this._repository = repository
     this._validate = validate
@@ -49,11 +43,7 @@ class CreateScheduleUseCase {
     editable: boolean,
     timeToSchedule: []
   ) {
-    const instanceUseCase = container.resolve(CreateScheduleUseCase)
-
-    const activeDoctor = await instanceUseCase._validate.doctorIsActive(
-      doctorId
-    )
+    const activeDoctor = await this._validate.doctorIsActive(doctorId)
 
     if (!activeDoctor) {
       customException('A agenda está desativada')
@@ -81,12 +71,11 @@ class CreateScheduleUseCase {
     })
 
     // Filtra o request.body para buscar horários redundantes (que já existem)
-    const filteredSchedules =
-      await instanceUseCase._validate.schedulesAlreadyExists(
-        newSchedules,
-        parsedMonthDay,
-        doctorId
-      )
+    const filteredSchedules = await this._validate.schedulesAlreadyExists(
+      newSchedules,
+      parsedMonthDay,
+      doctorId
+    )
 
     // Retira do request.body os horários que já existem no banco de dados
     for (let x = 0; x < filteredSchedules.length; x++) {
@@ -99,7 +88,7 @@ class CreateScheduleUseCase {
     }
 
     try {
-      const schedules = await instanceUseCase._repository.execute(newSchedules)
+      const schedules = await this._repository.execute(newSchedules)
 
       return schedules
     } catch (error) {

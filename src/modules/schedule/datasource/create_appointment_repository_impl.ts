@@ -1,16 +1,9 @@
-import 'reflect-metadata'
-import { injectable, inject } from 'inversify'
 import { ICreateAppointmentRepository } from '../domain/repositories/create_appointment_repository'
 import IHttpService from '../../../shared/prisma/http_service'
-import { TYPES } from '../../../shared/ioc/types'
-import container from '../../../shared/ioc/inversify_config'
 
-@injectable()
 class CreateAppointmentRepositoryImpl implements ICreateAppointmentRepository {
   private _prismaServer: IHttpService
-  constructor(
-    @inject(TYPES.PrismaServer) private readonly prismaServer: IHttpService
-  ) {
+  constructor(readonly prismaServer: IHttpService) {
     this._prismaServer = prismaServer
   }
 
@@ -22,11 +15,7 @@ class CreateAppointmentRepositoryImpl implements ICreateAppointmentRepository {
     card: string,
     scheduled: boolean
   ): Promise<string> {
-    const instanceRepository = container.resolve(
-      CreateAppointmentRepositoryImpl
-    )
-
-    const appointment = await instanceRepository._prismaServer
+    const appointment = await this._prismaServer
       .connectPrisma()
       .schedule.update({
         where: {

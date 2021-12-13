@@ -1,25 +1,15 @@
-import 'reflect-metadata'
-import { injectable, inject } from 'inversify'
 import { IListSchedulesRepository } from '../repositories/list_schedules_repository'
-import { TYPES } from '../../../../shared/ioc/types'
-import container from '../../../../shared/ioc/inversify_config'
 import { customException } from '../../../../shared/errors/custom_exception'
 
-@injectable()
 class ListSchedulesUseCase {
   private _repository: IListSchedulesRepository
-  constructor(
-    @inject(TYPES.ListSchedulesRepositoryImpl)
-    private readonly repository: IListSchedulesRepository
-  ) {
+  constructor(readonly repository: IListSchedulesRepository) {
     this._repository = repository
   }
 
   async call() {
-    const instanceUseCase = container.resolve(ListSchedulesUseCase)
-
     try {
-      const schedules = await instanceUseCase._repository.execute()
+      const schedules = await this._repository.execute()
 
       const serializedSchedules = schedules.map((schedule) => {
         return {

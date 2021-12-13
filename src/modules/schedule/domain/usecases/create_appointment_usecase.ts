@@ -1,22 +1,16 @@
-import 'reflect-metadata'
-import { injectable, inject } from 'inversify'
 import { ICreateAppointmentRepository } from '../repositories/create_appointment_repository'
 import { Validate } from '../../../../shared/utils/validate'
 import { DataChecker } from '../../../../shared/utils/data_checker'
-import { TYPES } from '../../../../shared/ioc/types'
-import container from '../../../../shared/ioc/inversify_config'
 import { customException } from '../../../../shared/errors/custom_exception'
 
-@injectable()
 class CreateAppointmentUseCase {
   private _repository: ICreateAppointmentRepository
   private _validate: Validate
   private _dataChecker: DataChecker
   constructor(
-    @inject(TYPES.CreateAppointmentRepositoryImpl)
-    private readonly repository: ICreateAppointmentRepository,
-    @inject(TYPES.Validate) private readonly validate: Validate,
-    @inject(TYPES.DataChecker) private readonly dataChecker: DataChecker
+    readonly repository: ICreateAppointmentRepository,
+    readonly validate: Validate,
+    readonly dataChecker: DataChecker
   ) {
     this._repository = repository
     this._validate = validate
@@ -30,23 +24,19 @@ class CreateAppointmentUseCase {
     card: string,
     scheduled: boolean
   ) {
-    const instanceUseCase = container.resolve(CreateAppointmentUseCase)
-
     if (!id) throw customException('Informe o ID do agendamento')
 
-    const appointmentId = await instanceUseCase._validate.verifyAppointmentId(
-      id
-    )
+    const appointmentId = await this._validate.verifyAppointmentId(id)
 
     if (!appointmentId) throw customException('Agendamento não disponível')
 
     if (!cpf) throw customException('Informe o CPF do beneficiário')
 
-    const validCpf = instanceUseCase._dataChecker.cpfChecker(cpf)
+    const validCpf = this._dataChecker.cpfChecker(cpf)
 
     if (!validCpf) throw customException('Cpf inválido')
 
-    const userCpf = await instanceUseCase._validate.verifyUserCpf(cpf)
+    const userCpf = await this._validate.verifyUserCpf(cpf)
 
     if (!userCpf) throw customException('Cpf não cadastrado')
 
@@ -58,26 +48,26 @@ class CreateAppointmentUseCase {
     if (plain !== 'Particular' && !card)
       throw customException('Informe o código do beneficiário')
 
-    const validPlain = await instanceUseCase._validate.verifyPlain(cpf, plain)
+    const validPlain = await this._validate.verifyPlain(cpf, plain)
 
     if (!validPlain) throw customException('O convênio informado não confere')
 
-    const validCard = await instanceUseCase._validate.verifyCard(cpf, card)
+    const validCard = await this._validate.verifyCard(cpf, card)
 
     if (!validCard)
       throw customException('Número de beneficiário não encontrado')
 
-    const userActive = await instanceUseCase._validate.userIsActive(cpf)
+    const userActive = await this._validate.userIsActive(cpf)
 
     if (!userActive)
       throw customException(
         'O agendamento está desabilitado porque o usuário não está ativo. Entre em contato com sua clínica.'
       )
 
-    const patientName = await instanceUseCase._validate.getPatientName(cpf)
+    const patientName = await this._validate.getPatientName(cpf)
 
     try {
-      const appointments = await instanceUseCase._repository.execute(
+      const appointments = await this._repository.execute(
         id,
         patientName,
         cpf,

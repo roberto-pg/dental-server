@@ -54,6 +54,24 @@ import { ChangeDoctorStatusController } from './modules/doctor/controller/change
 import { RemoveDoctorRepositoryImpl } from './modules/doctor/datasource/remove_doctor_repository_impl'
 import { RemoveDoctorUseCase } from './modules/doctor/domain/usecases/remove_doctor_usecase'
 import { RemoveDoctorController } from './modules/doctor/controller/remove_doctor_controller'
+import { CreateScheduleRepositoryImpl } from './modules/schedule/datasource/create_schedule_repository_impl'
+import { CreateScheduleUseCase } from './modules/schedule/domain/usecases/create_schedule_usecase'
+import { CreateScheduleController } from './modules/schedule/controller/create_schedule_controller'
+import { ListSchedulesRepositoryImpl } from './modules/schedule/datasource/list_schedules_repository_impl'
+import { ListSchedulesUseCase } from './modules/schedule/domain/usecases/list_schedules_usecase'
+import { ListSchedulesController } from './modules/schedule/controller/list_schedules_controller'
+import { RemoveScheduleRepositoryImpl } from './modules/schedule/datasource/remove_schedule_repository_impl'
+import { RemoveScheduleUseCase } from './modules/schedule/domain/usecases/remove_schedule_usecase'
+import { RemoveScheduleController } from './modules/schedule/controller/remove_schedule_controller'
+import { CreateAppointmentRepositoryImpl } from './modules/schedule/datasource/create_appointment_repository_impl'
+import { CreateAppointmentUseCase } from './modules/schedule/domain/usecases/create_appointment_usecase'
+import { CreateAppointmentController } from './modules/schedule/controller/create_appointment_controller'
+import { ChangeEditableRepositoryImpl } from './modules/schedule/datasource/change_editable_repository_impl'
+import { ChangeEditableUseCase } from './modules/schedule/domain/usecases/change_editable_usecase'
+import { ChangeEditableController } from './modules/schedule/controller/change_editable_controller'
+import { RemoveAppointmentRepositoryImpl } from './modules/schedule/datasource/remove_appointment_repository.impl'
+import { RemoveAppointmentUseCase } from './modules/schedule/domain/usecases/remove_appointment_usecase'
+import { RemoveAppointmentController } from './modules/schedule/controller/remove_appointment_controller'
 const multer = require('multer')
 const multerConfig = require('./middleware/multer')
 
@@ -93,6 +111,16 @@ const changeDoctorStatusRepository = new ChangeDoctorStatusRepositoryImpl(
   prismaServer
 )
 const removeDoctorRepository = new RemoveDoctorRepositoryImpl(prismaServer)
+const createScheduleRepository = new CreateScheduleRepositoryImpl(prismaServer)
+const listSchedulesRepository = new ListSchedulesRepositoryImpl(prismaServer)
+const removeScheduleRepository = new RemoveScheduleRepositoryImpl(prismaServer)
+const createAppointmentRepository = new CreateAppointmentRepositoryImpl(
+  prismaServer
+)
+const changeEditableRepository = new ChangeEditableRepositoryImpl(prismaServer)
+const removeAppointmentRepository = new RemoveAppointmentRepositoryImpl(
+  prismaServer
+)
 
 const createUserUseCase = new CreateUserUseCase(
   createUserRepository,
@@ -150,6 +178,28 @@ const removeDoctorUseCase = new RemoveDoctorUseCase(
   removeDoctorRepository,
   validate
 )
+const createScheduleUseCase = new CreateScheduleUseCase(
+  createScheduleRepository,
+  validate
+)
+const listSchedulesUseCase = new ListSchedulesUseCase(listSchedulesRepository)
+const removeScheduleUseCase = new RemoveScheduleUseCase(
+  removeScheduleRepository,
+  validate
+)
+const createAppointmentUseCase = new CreateAppointmentUseCase(
+  createAppointmentRepository,
+  validate,
+  dataChecker
+)
+const changeEditableUseCase = new ChangeEditableUseCase(
+  changeEditableRepository,
+  validate
+)
+const removeAppointmentUseCase = new RemoveAppointmentUseCase(
+  removeAppointmentRepository,
+  validate
+)
 
 const authenticateUserController = new AuthenticateUserController(
   authenticateUserUseCase
@@ -184,6 +234,24 @@ const changeDoctorStatusController = new ChangeDoctorStatusController(
   changeDoctorStatusUseCase
 )
 const removeDoctorController = new RemoveDoctorController(removeDoctorUseCase)
+const createScheduleController = new CreateScheduleController(
+  createScheduleUseCase
+)
+const listSchedulesController = new ListSchedulesController(
+  listSchedulesUseCase
+)
+const removeScheduleController = new RemoveScheduleController(
+  removeScheduleUseCase
+)
+const createAppointmentController = new CreateAppointmentController(
+  createAppointmentUseCase
+)
+const changeEditableController = new ChangeEditableController(
+  changeEditableUseCase
+)
+const removeAppointmentController = new RemoveAppointmentController(
+  removeAppointmentUseCase
+)
 
 router.post('/authenticate-user', authenticateUserController.handle)
 router.post('/authenticate-admin', authenticateAdminController.handle)
@@ -230,13 +298,32 @@ router.delete(
   removeDoctorController.handle
 )
 
-// router.post(
-//   '/schedules/:doctorId',
-//   protectedRoute,
-//   createScheduleController.handle
-// )
-
-// router.get('/schedules', protectedRoute, listSchedulesController.handle)
+router.post(
+  '/schedules/:doctorId',
+  protectedRoute,
+  createScheduleController.handle
+)
+router.get('/schedules', protectedRoute, listSchedulesController.handle)
+router.delete(
+  '/delete-schedule/:id',
+  protectedRoute,
+  removeScheduleController.handle
+)
+router.patch(
+  '/create-appointment',
+  protectedRoute,
+  createAppointmentController.handle
+)
+router.patch(
+  '/schedule-editable',
+  protectedRoute,
+  changeEditableController.handle
+)
+router.patch(
+  '/destroy-appointment',
+  protectedRoute,
+  removeAppointmentController.handle
+)
 
 // router.get(
 //   '/schedules-by-scheduled/:scheduled',
@@ -256,34 +343,10 @@ router.delete(
 //   mobListSchedulesByDoctorController.handle
 // )
 
-// router.delete(
-//   '/delete-schedule/:id',
-//   protectedRoute,
-//   removeScheduleController.handle
-// )
-
 // router.get(
 //   '/appointments-by-cpf',
 //   protectedRoute,
 //   listAppointmentByCpfController.handle
-// )
-
-// router.patch(
-//   '/create-appointment',
-//   protectedRoute,
-//   createAppointmentController.handle
-// )
-
-// router.patch(
-//   '/schedule-editable',
-//   protectedRoute,
-//   changeEditableController.handle
-// )
-
-// router.patch(
-//   '/destroy-appointment',
-//   protectedRoute,
-//   removeAppointmentController.handle
 // )
 
 export { router }
