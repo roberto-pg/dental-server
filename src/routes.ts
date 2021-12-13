@@ -24,6 +24,18 @@ import { ListUserByIdController } from './modules/user/controller/list_user_by_i
 import { RemoveUserRepositoryImpl } from './modules/user/datasource/remove_user_repository_impl'
 import { RemoveUserUseCase } from './modules/user/domain/usecases/remove_user_usecase'
 import { RemoveUserController } from './modules/user/controller/remove_user_controller'
+import { ChangeNameOrEmailRepositoryImpl } from './modules/user/datasource/change_name_or_email_repository_impl'
+import { ChangeNameOrEmailUseCase } from './modules/user/domain/usecases/change_name_or_email_usecase'
+import { ChangeNameOrEmailController } from './modules/user/controller/change_name_or_email_controller'
+import { ChangeStatusRepositoryImpl } from './modules/user/datasource/change_status_repository_impl'
+import { ChangeStatusUseCase } from './modules/user/domain/usecases/change_status_usecase'
+import { ChangeStatusController } from './modules/user/controller/change_status_controller'
+import { ChangePlainAndCardRepositoryImpl } from './modules/user/datasource/change_plain_and_card_repository_impl'
+import { ChangePlainAndCardUseCase } from './modules/user/domain/usecases/change_plain_and_card_usecase'
+import { ChangePlainAndCardController } from './modules/user/controller/change_plain_and_card_controller'
+import { ChangePasswordRepositoryImpl } from './modules/user/datasource/change_password_repository_impl'
+import { ChangePasswordUseCase } from './modules/user/domain/usecases/change_password_usecase'
+import { ChangePasswordController } from './modules/user/controller/change_password.controller'
 // const multer = require('multer')
 // const multerConfig = require('./middleware/multer')
 
@@ -44,6 +56,14 @@ const logoutUserRepository = new LogoutUserRepositoryImpl(prismaServer)
 const listUsersRepository = new ListUsersRepositoryImpl(prismaServer)
 const listUserByIdRepository = new ListUserByIdRepositoryImpl(prismaServer)
 const removeUserRepository = new RemoveUserRepositoryImpl(prismaServer)
+const changeNameOrEmailRepository = new ChangeNameOrEmailRepositoryImpl(
+  prismaServer
+)
+const changeStatusRepository = new ChangeStatusRepositoryImpl(prismaServer)
+const changePlainAndCardRepository = new ChangePlainAndCardRepositoryImpl(
+  prismaServer
+)
+const changePasswordRepository = new ChangePasswordRepositoryImpl(prismaServer)
 
 const createUserUseCase = new CreateUserUseCase(
   createUserRepository,
@@ -67,6 +87,23 @@ const listUserByIdUseCase = new ListUserByIdUseCase(
   validate
 )
 const removeUserUseCase = new RemoveUserUseCase(removeUserRepository, validate)
+const changeNameOrEmailUseCase = new ChangeNameOrEmailUseCase(
+  changeNameOrEmailRepository,
+  validate,
+  dataChecker
+)
+const changeStatusUseCase = new ChangeStatusUseCase(
+  changeStatusRepository,
+  validate
+)
+const changePlainAndCardUseCase = new ChangePlainAndCardUseCase(
+  changePlainAndCardRepository,
+  validate
+)
+const changePasswordUseCase = new ChangePasswordUseCase(
+  changePasswordRepository,
+  validate
+)
 
 const authenticateUserController = new AuthenticateUserController(
   authenticateUserUseCase
@@ -79,6 +116,16 @@ const logoutUserController = new LogoutUserController(logoutUserUseCase)
 const listUsersController = new ListUsersController(listUsersUseCase)
 const listUserByIdController = new ListUserByIdController(listUserByIdUseCase)
 const removeUserController = new RemoveUserController(removeUserUseCase)
+const changeNameOrEmailController = new ChangeNameOrEmailController(
+  changeNameOrEmailUseCase
+)
+const changeStatusController = new ChangeStatusController(changeStatusUseCase)
+const changePlainAndCardController = new ChangePlainAndCardController(
+  changePlainAndCardUseCase
+)
+const changePasswordController = new ChangePasswordController(
+  changePasswordUseCase
+)
 
 router.post('/authenticate-user', authenticateUserController.handle)
 router.post('/authenticate-admin', authenticateAdminController.handle)
@@ -88,22 +135,18 @@ router.post('/users', createUserController.handle)
 router.get('/users', protectedRoute, listUsersController.handle)
 router.get('/users/:id', protectedRoute, listUserByIdController.handle)
 router.delete('/delete-user/:id', protectedRoute, removeUserController.handle)
-
-// router.patch('/user-active', protectedRoute, changeStatusController.handle)
-
-// router.patch(
-//   '/users/name-or-email',
-//   protectedRoute,
-//   changeNameOrEmailController.handle
-// )
-
-// router.patch(
-//   '/users/plain-and-card',
-//   protectedRoute,
-//   changePlainAndCardController.handle
-// )
-
-// router.patch('/users-password', protectedRoute, changePasswordController.handle)
+router.patch(
+  '/users/name-or-email',
+  protectedRoute,
+  changeNameOrEmailController.handle
+)
+router.patch('/user-active', protectedRoute, changeStatusController.handle)
+router.patch(
+  '/users/plain-and-card',
+  protectedRoute,
+  changePlainAndCardController.handle
+)
+router.patch('/users-password', protectedRoute, changePasswordController.handle)
 
 // router.post(
 //   '/doctors',
