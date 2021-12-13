@@ -1,35 +1,27 @@
-import 'reflect-metadata'
-import { injectable, inject } from 'inversify'
-import { TYPES } from '../../../../shared/ioc/types'
 import { IListDoctorsByIdRepository } from '../repositories/list_doctors_by_id_repository'
-import container from '../../../../shared/ioc/inversify_config'
 import { customException } from '../../../../shared/errors/custom_exception'
 import { Validate } from '../../../../shared/utils/validate'
 
-@injectable()
 class ListDoctorsByIdUseCase {
   private _repository: IListDoctorsByIdRepository
   private _validate: Validate
   constructor(
-    @inject(TYPES.ListDoctorsByIdRepositoryImpl)
-    private readonly repository: IListDoctorsByIdRepository,
-    @inject(TYPES.Validate) private readonly validate: Validate
+    readonly repository: IListDoctorsByIdRepository,
+    readonly validate: Validate
   ) {
     this._repository = repository
     this._validate = validate
   }
 
   async call(id: string) {
-    const instanceUseCase = container.resolve(ListDoctorsByIdUseCase)
-
-    const doctorId = await instanceUseCase._validate.verifyDoctorId(id)
+    const doctorId = await this._validate.verifyDoctorId(id)
 
     if (!doctorId) {
       throw customException('Doutor não encontrado')
     }
 
     try {
-      const doctor = await instanceUseCase._repository.execute(id)
+      const doctor = await this._repository.execute(id)
 
       const serializedDoctor = {
         id: doctor.id,

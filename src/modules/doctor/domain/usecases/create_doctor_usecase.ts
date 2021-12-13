@@ -1,17 +1,9 @@
-import 'reflect-metadata'
-import { injectable, inject } from 'inversify'
-import { TYPES } from '../../../../shared/ioc/types'
 import { ICreateDoctorRepository } from '../repositories/create_doctor_repository'
-import container from '../../../../shared/ioc/inversify_config'
 import { customException } from '../../../../shared/errors/custom_exception'
 
-@injectable()
 class CreateDoctorUseCase {
   private _repository: ICreateDoctorRepository
-  constructor(
-    @inject(TYPES.CreateDoctorRepositoryImpl)
-    private readonly repository: ICreateDoctorRepository
-  ) {
+  constructor(readonly repository: ICreateDoctorRepository) {
     this._repository = repository
   }
 
@@ -29,9 +21,7 @@ class CreateDoctorUseCase {
     }
 
     try {
-      const instanceUseCase = container.resolve(CreateDoctorUseCase)
-
-      const doctor = await instanceUseCase._repository.execute(
+      const doctor = await this._repository.execute(
         name,
         specialty,
         image_url,

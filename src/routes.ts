@@ -36,8 +36,26 @@ import { ChangePlainAndCardController } from './modules/user/controller/change_p
 import { ChangePasswordRepositoryImpl } from './modules/user/datasource/change_password_repository_impl'
 import { ChangePasswordUseCase } from './modules/user/domain/usecases/change_password_usecase'
 import { ChangePasswordController } from './modules/user/controller/change_password.controller'
-// const multer = require('multer')
-// const multerConfig = require('./middleware/multer')
+import { CreateDoctorRepositoryImpl } from './modules/doctor/datasource/create_doctor_repository_impl'
+import { CreateDoctorUseCase } from './modules/doctor/domain/usecases/create_doctor_usecase'
+import { CreateDoctorController } from './modules/doctor/controller/create_doctor_controller'
+import { ListDoctorsRepositoryImpl } from './modules/doctor/datasource/list_doctors_repository_impl'
+import { ListDoctorsUseCase } from './modules/doctor/domain/usecases/list_doctors_usecase'
+import { ListDoctorsController } from './modules/doctor/controller/list_doctors_controller'
+import { ListDoctorsBySpecialtyRepositoryImpl } from './modules/doctor/datasource/list_doctors_by_specialty_repository_impl'
+import { ListDoctorsBySpecialtyUseCase } from './modules/doctor/domain/usecases/list_doctors_by_specialty_usecase'
+import { ListDoctorsBySpecialtyController } from './modules/doctor/controller/list_doctors_by_specialty_controller'
+import { ListDoctorsByIdRepositoryImpl } from './modules/doctor/datasource/list_doctors_by_id_repository_impl'
+import { ListDoctorsByIdUseCase } from './modules/doctor/domain/usecases/list_doctors_by_id_usecase'
+import { ListDoctorsByIdController } from './modules/doctor/controller/list_doctors_by_id_controller'
+import { ChangeDoctorStatusRepositoryImpl } from './modules/doctor/datasource/change_doctor_status_repository_impl'
+import { ChangeDoctorStatusUseCase } from './modules/doctor/domain/usecases/change_doctor_status_usecase'
+import { ChangeDoctorStatusController } from './modules/doctor/controller/change_doctor_status_controller'
+import { RemoveDoctorRepositoryImpl } from './modules/doctor/datasource/remove_doctor_repository_impl'
+import { RemoveDoctorUseCase } from './modules/doctor/domain/usecases/remove_doctor_usecase'
+import { RemoveDoctorController } from './modules/doctor/controller/remove_doctor_controller'
+const multer = require('multer')
+const multerConfig = require('./middleware/multer')
 
 const router = Router()
 
@@ -64,6 +82,17 @@ const changePlainAndCardRepository = new ChangePlainAndCardRepositoryImpl(
   prismaServer
 )
 const changePasswordRepository = new ChangePasswordRepositoryImpl(prismaServer)
+const createDoctorRepository = new CreateDoctorRepositoryImpl(prismaServer)
+const listDoctorsRepository = new ListDoctorsRepositoryImpl(prismaServer)
+const listDoctorsBySpecialtyRepository =
+  new ListDoctorsBySpecialtyRepositoryImpl(prismaServer)
+const listDoctorsByIdRepository = new ListDoctorsByIdRepositoryImpl(
+  prismaServer
+)
+const changeDoctorStatusRepository = new ChangeDoctorStatusRepositoryImpl(
+  prismaServer
+)
+const removeDoctorRepository = new RemoveDoctorRepositoryImpl(prismaServer)
 
 const createUserUseCase = new CreateUserUseCase(
   createUserRepository,
@@ -104,6 +133,23 @@ const changePasswordUseCase = new ChangePasswordUseCase(
   changePasswordRepository,
   validate
 )
+const createDoctorUseCase = new CreateDoctorUseCase(createDoctorRepository)
+const listDoctorsUseCase = new ListDoctorsUseCase(listDoctorsRepository)
+const listDoctorsBySpecialtyUseCase = new ListDoctorsBySpecialtyUseCase(
+  listDoctorsBySpecialtyRepository
+)
+const listDoctorsByIdUseCase = new ListDoctorsByIdUseCase(
+  listDoctorsByIdRepository,
+  validate
+)
+const changeDoctorStatusUseCase = new ChangeDoctorStatusUseCase(
+  changeDoctorStatusRepository,
+  validate
+)
+const removeDoctorUseCase = new RemoveDoctorUseCase(
+  removeDoctorRepository,
+  validate
+)
 
 const authenticateUserController = new AuthenticateUserController(
   authenticateUserUseCase
@@ -126,6 +172,18 @@ const changePlainAndCardController = new ChangePlainAndCardController(
 const changePasswordController = new ChangePasswordController(
   changePasswordUseCase
 )
+const createDoctorController = new CreateDoctorController(createDoctorUseCase)
+const listDoctorsController = new ListDoctorsController(listDoctorsUseCase)
+const listDoctorsBySpecialtyController = new ListDoctorsBySpecialtyController(
+  listDoctorsBySpecialtyUseCase
+)
+const listDoctorsByIdController = new ListDoctorsByIdController(
+  listDoctorsByIdUseCase
+)
+const changeDoctorStatusController = new ChangeDoctorStatusController(
+  changeDoctorStatusUseCase
+)
+const removeDoctorController = new RemoveDoctorController(removeDoctorUseCase)
 
 router.post('/authenticate-user', authenticateUserController.handle)
 router.post('/authenticate-admin', authenticateAdminController.handle)
@@ -148,34 +206,29 @@ router.patch(
 )
 router.patch('/users-password', protectedRoute, changePasswordController.handle)
 
-// router.post(
-//   '/doctors',
-//   multer(multerConfig).single('imageUrl'),
-//   protectedRoute,
-//   createDoctorControler.handle
-// )
-
-// router.get('/doctors', protectedRoute, listDoctorsController.handle)
-
-// router.delete(
-//   '/delete-doctor/:id',
-//   protectedRoute,
-//   removeDoctorController.handle
-// )
-
-// router.get(
-//   '/doctors-specialty/:specialty',
-//   protectedRoute,
-//   listDoctorsBySpecialtyController.handle
-// )
-
-// router.get('/doctor-id/:id', protectedRoute, listDoctorsByIdController.handle)
-
-// router.patch(
-//   '/doctor-active',
-//   protectedRoute,
-//   changeDoctorStatusController.handle
-// )
+router.post(
+  '/doctors',
+  multer(multerConfig).single('imageUrl'),
+  protectedRoute,
+  createDoctorController.handle
+)
+router.get('/doctors', protectedRoute, listDoctorsController.handle)
+router.get(
+  '/doctors-specialty/:specialty',
+  protectedRoute,
+  listDoctorsBySpecialtyController.handle
+)
+router.get('/doctor-id/:id', protectedRoute, listDoctorsByIdController.handle)
+router.patch(
+  '/doctor-active',
+  protectedRoute,
+  changeDoctorStatusController.handle
+)
+router.delete(
+  '/delete-doctor/:id',
+  protectedRoute,
+  removeDoctorController.handle
+)
 
 // router.post(
 //   '/schedules/:doctorId',
