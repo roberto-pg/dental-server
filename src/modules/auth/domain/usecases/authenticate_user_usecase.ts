@@ -11,9 +11,9 @@ class AuthenticateUserUseCase {
   private _validate: Validate
   private _dataChecker: DataChecker
   constructor(
-    repository: IAuthenticateUserRepository,
-    validate: Validate,
-    dataChecker: DataChecker
+    readonly repository: IAuthenticateUserRepository,
+    readonly validate: Validate,
+    readonly dataChecker: DataChecker
   ) {
     this._repository = repository
     this._validate = validate

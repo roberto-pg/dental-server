@@ -1,22 +1,13 @@
-import 'reflect-metadata'
-import { injectable, inject } from 'inversify'
 import { IListSchedulesByScheduledRepository } from '../repositories/list_schedules_by_scheduled_repository'
-import { TYPES } from '../../../../shared/ioc/types'
-import container from '../../../../shared/ioc/inversify_config'
 import { customException } from '../../../../shared/errors/custom_exception'
 
-@injectable()
 class ListSchedulesByScheduledUseCase {
   private _repository: IListSchedulesByScheduledRepository
-  constructor(
-    @inject(TYPES.ListSchedulesByScheduledRepositoryImpl)
-    private readonly repository: IListSchedulesByScheduledRepository
-  ) {
+  constructor(readonly repository: IListSchedulesByScheduledRepository) {
     this._repository = repository
   }
 
   async call(scheduled: string) {
-    const instanceUseCase = container.resolve(ListSchedulesByScheduledUseCase)
     let scheduledBool: boolean
 
     if (scheduled === 'true') {
@@ -28,7 +19,7 @@ class ListSchedulesByScheduledUseCase {
     }
 
     try {
-      const schedules = await instanceUseCase._repository.execute(scheduledBool)
+      const schedules = await this._repository.execute(scheduledBool)
 
       const serializedSchedules = schedules.map((schedule) => {
         return {

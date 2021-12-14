@@ -1,8 +1,4 @@
-import 'reflect-metadata'
-import { injectable, inject } from 'inversify'
 import { IListSchedulesByDoctorRepository } from '../repositories/list_schedules_by_doctor_repository'
-import { TYPES } from '../../../../shared/ioc/types'
-import container from '../../../../shared/ioc/inversify_config'
 import { customException } from '../../../../shared/errors/custom_exception'
 import { Validate } from '../../../../shared/utils/validate'
 
@@ -22,23 +18,19 @@ type ScheduleModel = {
   editable: boolean
 }
 
-@injectable()
 class ListSchedulesByDoctorUseCase {
   private _repository: IListSchedulesByDoctorRepository
   private _validate: Validate
   constructor(
-    @inject(TYPES.ListSchedulesByDoctorRepositoryImpl)
-    private readonly repository: IListSchedulesByDoctorRepository,
-    @inject(TYPES.Validate) private readonly validate: Validate
+    readonly repository: IListSchedulesByDoctorRepository,
+    readonly validate: Validate
   ) {
     this._repository = repository
     this._validate = validate
   }
 
   async call(doctorId: string, yearAndMonth: string) {
-    const instanceUseCase = container.resolve(ListSchedulesByDoctorUseCase)
-
-    const doctor = await instanceUseCase._validate.verifyDoctorId(doctorId)
+    const doctor = await this._validate.verifyDoctorId(doctorId)
 
     if (!doctor) {
       throw customException('Doutor não encontrado')
@@ -49,10 +41,7 @@ class ListSchedulesByDoctorUseCase {
       currentDay.setHours(0, 0, 0, 0)
       const filteredSchedules = []
 
-      const schedules = await instanceUseCase._repository.execute(
-        doctorId,
-        currentDay
-      )
+      const schedules = await this._repository.execute(doctorId, currentDay)
 
       schedules.map((doctorSchedule: ScheduleModel) => {
         const formattedDate = doctorSchedule.month_day.substring(0, 7)

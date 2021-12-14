@@ -3,7 +3,7 @@ import { LogoutUserUseCase } from '../domain/usecases/logout_user_usecase'
 
 class LogoutUserController {
   private _useCase: LogoutUserUseCase
-  constructor(useCase: LogoutUserUseCase) {
+  constructor(readonly useCase: LogoutUserUseCase) {
     this._useCase = useCase
     this.handle = this.handle.bind(this)
   }

@@ -72,6 +72,18 @@ import { ChangeEditableController } from './modules/schedule/controller/change_e
 import { RemoveAppointmentRepositoryImpl } from './modules/schedule/datasource/remove_appointment_repository.impl'
 import { RemoveAppointmentUseCase } from './modules/schedule/domain/usecases/remove_appointment_usecase'
 import { RemoveAppointmentController } from './modules/schedule/controller/remove_appointment_controller'
+import { ListSchedulesByScheduledRepositoryImpl } from './modules/schedule/datasource/list_schedules_by_scheduled_repository_impl'
+import { ListSchedulesByScheduledUseCase } from './modules/schedule/domain/usecases/lists_schedules_by_scheduled_usecase'
+import { ListSchedulesByScheduledController } from './modules/schedule/controller/list_schedules_by_scheduled_controller'
+import { ListSchedulesByDoctorRepositoryImpl } from './modules/schedule/datasource/list_schedules_by_doctor_repository_impl'
+import { ListSchedulesByDoctorUseCase } from './modules/schedule/domain/usecases/list_schedules_by_doctor_usecase'
+import { ListSchedulesByDoctorController } from './modules/schedule/controller/list_schedules_by_doctor_controller'
+import { MobListSchedulesByDoctorRepositoryImpl } from './modules/schedule/datasource/mob_list_schedules_by_doctor_repository_impl'
+import { MobListSchedulesByDoctorUseCase } from './modules/schedule/domain/usecases/mob_list_schedules_by_doctor_usecase'
+import { MobListSchedulesByDoctorController } from './modules/schedule/controller/mob_list_schedules_by_doctor_controller'
+import { ListAppointmentByCpfRepositoryImpl } from './modules/schedule/datasource/list_appointment_by_cpf_repository_impl'
+import { ListAppointmentByCpfUseCase } from './modules/schedule/domain/usecases/list_appointment_by_cpf_usecase'
+import { ListAppointmentByCpfController } from './modules/schedule/controller/list_appointment_by_cpf_controller'
 const multer = require('multer')
 const multerConfig = require('./middleware/multer')
 
@@ -119,6 +131,16 @@ const createAppointmentRepository = new CreateAppointmentRepositoryImpl(
 )
 const changeEditableRepository = new ChangeEditableRepositoryImpl(prismaServer)
 const removeAppointmentRepository = new RemoveAppointmentRepositoryImpl(
+  prismaServer
+)
+const listSchedulesByScheduledRepository =
+  new ListSchedulesByScheduledRepositoryImpl(prismaServer)
+const listSchedulesByDoctorRepository = new ListSchedulesByDoctorRepositoryImpl(
+  prismaServer
+)
+const mobListSchedulesByDoctorRepository =
+  new MobListSchedulesByDoctorRepositoryImpl(prismaServer)
+const listAppointmentByCpfRepository = new ListAppointmentByCpfRepositoryImpl(
   prismaServer
 )
 
@@ -200,6 +222,21 @@ const removeAppointmentUseCase = new RemoveAppointmentUseCase(
   removeAppointmentRepository,
   validate
 )
+const listSchedulesByScheduledUseCase = new ListSchedulesByScheduledUseCase(
+  listSchedulesByScheduledRepository
+)
+const listSchedulesByDoctorUseCase = new ListSchedulesByDoctorUseCase(
+  listSchedulesByDoctorRepository,
+  validate
+)
+const mobListSchedulesByDoctorUseCase = new MobListSchedulesByDoctorUseCase(
+  mobListSchedulesByDoctorRepository,
+  validate
+)
+const listAppointmentByCpfUseCase = new ListAppointmentByCpfUseCase(
+  listAppointmentByCpfRepository,
+  dataChecker
+)
 
 const authenticateUserController = new AuthenticateUserController(
   authenticateUserUseCase
@@ -251,6 +288,16 @@ const changeEditableController = new ChangeEditableController(
 )
 const removeAppointmentController = new RemoveAppointmentController(
   removeAppointmentUseCase
+)
+const listSchedulesByScheduledController =
+  new ListSchedulesByScheduledController(listSchedulesByScheduledUseCase)
+const listSchedulesByDoctorController = new ListSchedulesByDoctorController(
+  listSchedulesByDoctorUseCase
+)
+const mobListSchedulesByDoctorController =
+  new MobListSchedulesByDoctorController(mobListSchedulesByDoctorUseCase)
+const listAppointmentByCpfController = new ListAppointmentByCpfController(
+  listAppointmentByCpfUseCase
 )
 
 router.post('/authenticate-user', authenticateUserController.handle)
@@ -324,29 +371,25 @@ router.patch(
   protectedRoute,
   removeAppointmentController.handle
 )
-
-// router.get(
-//   '/schedules-by-scheduled/:scheduled',
-//   protectedRoute,
-//   listSchedulesByScheduledController.handle
-// )
-
-// router.get(
-//   '/schedules-by-doctor/:doctorId/:yearAndMonth',
-//   protectedRoute,
-//   listSchedulesByDoctorController.handle
-// )
-
-// router.get(
-//   '/schedules-by-doctor-mobile/:doctorId',
-//   protectedRoute,
-//   mobListSchedulesByDoctorController.handle
-// )
-
-// router.get(
-//   '/appointments-by-cpf',
-//   protectedRoute,
-//   listAppointmentByCpfController.handle
-// )
+router.get(
+  '/schedules-by-scheduled/:scheduled',
+  protectedRoute,
+  listSchedulesByScheduledController.handle
+)
+router.get(
+  '/schedules-by-doctor/:doctorId/:yearAndMonth',
+  protectedRoute,
+  listSchedulesByDoctorController.handle
+)
+router.get(
+  '/schedules-by-doctor-mobile/:doctorId',
+  protectedRoute,
+  mobListSchedulesByDoctorController.handle
+)
+router.get(
+  '/appointments-by-cpf',
+  protectedRoute,
+  listAppointmentByCpfController.handle
+)
 
 export { router }

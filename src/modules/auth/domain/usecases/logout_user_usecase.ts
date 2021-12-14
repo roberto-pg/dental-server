@@ -9,7 +9,10 @@ import {
 class LogoutUserUseCase {
   private _repository: ILogoutUserRepository
   private _validate: Validate
-  constructor(repository: ILogoutUserRepository, validate: Validate) {
+  constructor(
+    readonly repository: ILogoutUserRepository,
+    readonly validate: Validate
+  ) {
     this._repository = repository
     this._validate = validate
   }

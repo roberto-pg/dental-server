@@ -11,9 +11,9 @@ class AuthenticateAdminUseCase {
   private _validate: Validate
   private _dataChecker: DataChecker
   constructor(
-    repository: IAuthenticateAdminRepository,
-    validate: Validate,
-    dataChecker: DataChecker
+    readonly repository: IAuthenticateAdminRepository,
+    readonly validate: Validate,
+    readonly dataChecker: DataChecker
   ) {
     this._repository = repository
     this._validate = validate

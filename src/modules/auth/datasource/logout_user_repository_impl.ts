@@ -3,7 +3,7 @@ import IHttpService from '../../../shared/prisma/http_service'
 
 class LogoutUserRepositoryImpl implements ILogoutUserRepository {
   private _prismaServer: IHttpService
-  constructor(prismaServer: IHttpService) {
+  constructor(readonly prismaServer: IHttpService) {
     this._prismaServer = prismaServer
   }
 

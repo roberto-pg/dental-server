@@ -3,7 +3,7 @@ import IHttpService from '../../../shared/prisma/http_service'
 
 export class CreateUserRepositoryImpl implements ICreateUserRepository {
   private _prismaServer: IHttpService
-  constructor(prismaServer: IHttpService) {
+  constructor(readonly prismaServer: IHttpService) {
     this._prismaServer = prismaServer
   }
 

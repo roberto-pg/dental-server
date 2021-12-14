@@ -5,7 +5,7 @@ export class AuthenticateAdminRepositoryImpl
   implements IAuthenticateAdminRepository
 {
   private _prismaServer: IHttpService
-  constructor(prismaServer: IHttpService) {
+  constructor(readonly prismaServer: IHttpService) {
     this._prismaServer = prismaServer
   }
 

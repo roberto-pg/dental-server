@@ -1,18 +1,11 @@
-import 'reflect-metadata'
-import { injectable, inject } from 'inversify'
 import { IListSchedulesByDoctorRepository } from '../domain/repositories/list_schedules_by_doctor_repository'
 import IHttpService from '../../../shared/prisma/http_service'
-import { TYPES } from '../../../shared/ioc/types'
-import container from '../../../shared/ioc/inversify_config'
 
-@injectable()
 class ListSchedulesByDoctorRepositoryImpl
   implements IListSchedulesByDoctorRepository
 {
   private _prismaServer: IHttpService
-  constructor(
-    @inject(TYPES.PrismaServer) private readonly prismaServer: IHttpService
-  ) {
+  constructor(readonly prismaServer: IHttpService) {
     this._prismaServer = prismaServer
   }
 
@@ -35,11 +28,7 @@ class ListSchedulesByDoctorRepositoryImpl
       editable: boolean
     }[]
   > {
-    const instanceRepository = container.resolve(
-      ListSchedulesByDoctorRepositoryImpl
-    )
-
-    const schedules = await instanceRepository._prismaServer
+    const schedules = await this._prismaServer
       .connectPrisma()
       .schedule.findMany({
         where: {

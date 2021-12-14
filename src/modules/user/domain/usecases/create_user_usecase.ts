@@ -9,9 +9,9 @@ class CreateUserUseCase {
   private _dataChecker: DataChecker
   private _validate: Validate
   constructor(
-    repository: ICreateUserRepository,
-    dataChecker: DataChecker,
-    validate: Validate
+    readonly repository: ICreateUserRepository,
+    readonly dataChecker: DataChecker,
+    readonly validate: Validate
   ) {
     this._repository = repository
     this._dataChecker = dataChecker

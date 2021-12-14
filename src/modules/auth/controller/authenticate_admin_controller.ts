@@ -3,7 +3,7 @@ import { AuthenticateAdminUseCase } from '../domain/usecases/authenticate_admin_
 
 export default class AuthenticateAdminController {
   private _useCase: AuthenticateAdminUseCase
-  constructor(useCase: AuthenticateAdminUseCase) {
+  constructor(readonly useCase: AuthenticateAdminUseCase) {
     this._useCase = useCase
     this.handle = this.handle.bind(this)
   }

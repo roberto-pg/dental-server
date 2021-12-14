@@ -3,7 +3,7 @@ import { AuthenticateUserUseCase } from '../domain/usecases/authenticate_user_us
 
 export default class AuthenticateUserController {
   private _useCase: AuthenticateUserUseCase
-  constructor(useCase: AuthenticateUserUseCase) {
+  constructor(readonly useCase: AuthenticateUserUseCase) {
     this._useCase = useCase
     this.handle = this.handle.bind(this)
   }
