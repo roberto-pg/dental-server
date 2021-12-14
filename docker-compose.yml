@@ -25,7 +25,7 @@ services:
     ports:
       - "8282:80"
     volumes:
-      - /home/rpg/Docker/nginx/html:/usr/share/nginx/html
+      - /home/rpg/Docker/care-nginx/html:/usr/share/nginx/html
     restart: always
     networks:
       - care
@@ -38,7 +38,7 @@ services:
     working_dir: /usr/app
     volumes: 
       - .:/usr/app
-      - /home/rpg/Docker/nginx/html:/usr/app/public/images
+      - /home/rpg/Docker/care-nginx/html:/usr/app/public/images
     command: sh -c "yarn && yarn build && yarn start" 
     restart: always
     networks: 
