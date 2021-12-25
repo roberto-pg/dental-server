@@ -47,7 +47,7 @@ class CreateUserUseCase {
     }
 
     if (this._dataChecker.cpfChecker(cpf) === false) {
-      throw customException('Cpf inválido')
+      throw customException('CPF inválido')
     }
 
     const cpfExists = await this._validate.verifyUserCpf(cpf)
