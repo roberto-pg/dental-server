@@ -40,6 +40,12 @@ class ChangeNameOrEmailUseCase {
       throw customException('Email inválido')
     }
 
+    const emailExists = await this._validate.verifyUserEmail(email)
+
+    if (emailExists != null) {
+      throw customException('O email já existe')
+    }
+
     try {
       const userId = await this._repository.execute(id, name, email)
 
