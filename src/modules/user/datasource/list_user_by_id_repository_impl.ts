@@ -13,7 +13,7 @@ class ListUserByIdRepositoryImpl implements IListUserByIdRepository {
     cpf: string
     password?: string
     card: string
-    plain: string
+    plan: string
     active: boolean
     admin: boolean
   }> {
@@ -28,7 +28,7 @@ class ListUserByIdRepositoryImpl implements IListUserByIdRepository {
         cpf: true,
         password: false,
         card: true,
-        plain: true,
+        plan: true,
         active: true,
         admin: true
       }

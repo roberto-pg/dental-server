@@ -20,7 +20,7 @@ class CreateAppointmentUseCase {
   async call(
     id: string,
     cpf: string,
-    plain: string,
+    plan: string,
     card: string,
     scheduled: boolean
   ) {
@@ -40,15 +40,15 @@ class CreateAppointmentUseCase {
 
     if (!userCpf) throw customException('Cpf não cadastrado')
 
-    if (!plain) throw customException('Informe o convênio do beneficiário')
+    if (!plan) throw customException('Informe o convênio do beneficiário')
 
-    if (plain === 'Particular' && card !== '')
+    if (plan === 'Particular' && card !== '')
       customException('Paciente particular não usa código de beneficiário')
 
-    if (plain !== 'Particular' && !card)
+    if (plan !== 'Particular' && !card)
       throw customException('Informe o código do beneficiário')
 
-    const validPlain = await this._validate.verifyPlain(cpf, plain)
+    const validPlain = await this._validate.verifyPlain(cpf, plan)
 
     if (!validPlain) throw customException('O convênio informado não confere')
 
@@ -71,7 +71,7 @@ class CreateAppointmentUseCase {
         id,
         patientName,
         cpf,
-        plain,
+        plan,
         card,
         scheduled
       )

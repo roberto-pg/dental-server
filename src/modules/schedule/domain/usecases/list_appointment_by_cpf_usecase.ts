@@ -41,7 +41,7 @@ class ListAppointmentByCpfUseCase {
           hour: appointment.hour,
           patientName: appointment.patient_name,
           cpf: appointment.cpf,
-          plain: appointment.plain,
+          plan: appointment.plan,
           card: appointment.card,
           scheduled: appointment.scheduled,
           editable: appointment.editable

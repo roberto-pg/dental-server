@@ -14,7 +14,7 @@ export class ListUsersRepositoryImpl implements IListUsersRepository {
       cpf: string
       password?: string
       card: string
-      plain: string
+      plan: string
       active: boolean
       admin: boolean
     }[]
@@ -27,7 +27,7 @@ export class ListUsersRepositoryImpl implements IListUsersRepository {
         cpf: true,
         password: false,
         card: true,
-        plain: true,
+        plan: true,
         active: true,
         admin: true
       }

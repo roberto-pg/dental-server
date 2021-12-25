@@ -14,7 +14,7 @@ model User {
   cpf      String   @unique
   password String
   card     String?
-  plain    String
+  plan    String
   active   Boolean? @default(false)
   admin    Boolean? @default(false)
 
@@ -43,7 +43,7 @@ model Schedule {
   hour         String?
   patient_name String?
   cpf          String?
-  plain        String?
+  plan        String?
   scheduled    Boolean? @default(false)
   card         String?
   editable     Boolean? @default(false)

@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
-import { ChangePlainAndCardUseCase } from '../domain/usecases/change_plain_and_card_usecase'
+import { ChangePlanAndCardUseCase } from '../domain/usecases/change_plan_and_card_usecase'
 
-class ChangePlainAndCardController {
-  private _useCase: ChangePlainAndCardUseCase
+class ChangePlanAndCardController {
+  private _useCase: ChangePlanAndCardUseCase
   constructor(readonly useCase) {
     this._useCase = useCase
     this.handle = this.handle.bind(this)
@@ -21,4 +21,4 @@ class ChangePlainAndCardController {
   }
 }
 
-export { ChangePlainAndCardController }
+export { ChangePlanAndCardController }

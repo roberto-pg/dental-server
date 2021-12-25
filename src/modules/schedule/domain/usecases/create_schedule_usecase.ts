@@ -12,7 +12,7 @@ type ScheduleModel = {
   hour: string
   patient_name?: string
   cpf?: string
-  plain?: string
+  plan?: string
   scheduled: boolean
   card?: string
   editable: boolean
@@ -37,7 +37,7 @@ class CreateScheduleUseCase {
     weekDay: string,
     patientName: string,
     cpf: string,
-    plain: string,
+    plan: string,
     card: string,
     scheduled: boolean,
     editable: boolean,
@@ -63,7 +63,7 @@ class CreateScheduleUseCase {
         hour: scheduleItem.hour,
         patient_name: patientName,
         cpf: cpf,
-        plain: plain,
+        plan: plan,
         card: card,
         scheduled: scheduled,
         editable: editable

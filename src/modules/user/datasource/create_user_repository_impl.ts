@@ -13,7 +13,7 @@ export class CreateUserRepositoryImpl implements ICreateUserRepository {
     cpf: string,
     password: string,
     card: string,
-    plain: string,
+    plan: string,
     active: boolean,
     admin: boolean
   ): Promise<{
@@ -22,7 +22,7 @@ export class CreateUserRepositoryImpl implements ICreateUserRepository {
     cpf: string
     password: string
     card: string
-    plain: string
+    plan: string
     active: boolean
     admin: boolean
   }> {
@@ -33,7 +33,7 @@ export class CreateUserRepositoryImpl implements ICreateUserRepository {
         cpf,
         password,
         card,
-        plain,
+        plan,
         active,
         admin
       }

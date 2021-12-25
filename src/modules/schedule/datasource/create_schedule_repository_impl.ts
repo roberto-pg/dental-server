@@ -17,7 +17,7 @@ class CreateScheduleRepositoryImpl implements ICreateScheduleRepository {
       hour: string
       patient_name?: string
       cpf?: string
-      plain?: string
+      plan?: string
       card?: string
       scheduled: boolean
       editable: boolean

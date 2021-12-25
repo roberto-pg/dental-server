@@ -9,7 +9,7 @@ class RemoveAppointmentController {
   }
 
   async handle(request: Request, response: Response) {
-    const { id, patientName, cpf, plain, card, scheduled, editable } =
+    const { id, patientName, cpf, plan, card, scheduled, editable } =
       request.body
 
     try {
@@ -17,7 +17,7 @@ class RemoveAppointmentController {
         id,
         patientName,
         cpf,
-        plain,
+        plan,
         card,
         scheduled,
         editable

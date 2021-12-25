@@ -11,7 +11,7 @@ class CreateAppointmentRepositoryImpl implements ICreateAppointmentRepository {
     id: string,
     patientName: string,
     cpf: string,
-    plain: string,
+    plan: string,
     card: string,
     scheduled: boolean
   ): Promise<string> {
@@ -24,7 +24,7 @@ class CreateAppointmentRepositoryImpl implements ICreateAppointmentRepository {
         data: {
           patient_name: patientName,
           cpf: cpf,
-          plain: plain,
+          plan: plan,
           card: card,
           scheduled: scheduled
         }

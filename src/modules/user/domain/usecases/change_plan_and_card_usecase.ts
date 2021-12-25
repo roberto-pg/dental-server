@@ -1,35 +1,35 @@
-import { IChangePlainAndCardRepository } from '../repositories/change_plain_and_card_repository'
+import { IChangePlanAndCardRepository } from '../repositories/change_plan_and_card_repository'
 import { Validate } from '../../../../shared/utils/validate'
 import { customException } from '../../../../shared/errors/custom_exception'
 
-class ChangePlainAndCardUseCase {
-  private _repository: IChangePlainAndCardRepository
+class ChangePlanAndCardUseCase {
+  private _repository: IChangePlanAndCardRepository
   private _validate: Validate
   constructor(
-    readonly repository: IChangePlainAndCardRepository,
+    readonly repository: IChangePlanAndCardRepository,
     readonly validate: Validate
   ) {
     this._repository = repository
     this._validate = validate
   }
 
-  async call(id: string, plain: string, card: string) {
+  async call(id: string, plan: string, card: string) {
     const user = await this._validate.verifyUserId(id)
 
     if (!user) {
       throw customException('Usuário não encontrado')
     }
 
-    if (!plain) {
+    if (!plan) {
       throw customException('Informe o nome do convênio')
     }
 
-    if (plain !== 'Particular' && card === '') {
+    if (plan !== 'Particular' && card === '') {
       throw customException('Informe o código do beneficiário')
     }
 
     try {
-      const userId = await this._repository.execute(id, plain, card)
+      const userId = await this._repository.execute(id, plan, card)
 
       return userId
     } catch (error) {
@@ -38,4 +38,4 @@ class ChangePlainAndCardUseCase {
   }
 }
 
-export { ChangePlainAndCardUseCase }
+export { ChangePlanAndCardUseCase }

@@ -30,9 +30,9 @@ import { ChangeNameOrEmailController } from './modules/user/controller/change_na
 import { ChangeStatusRepositoryImpl } from './modules/user/datasource/change_status_repository_impl'
 import { ChangeStatusUseCase } from './modules/user/domain/usecases/change_status_usecase'
 import { ChangeStatusController } from './modules/user/controller/change_status_controller'
-import { ChangePlainAndCardRepositoryImpl } from './modules/user/datasource/change_plain_and_card_repository_impl'
-import { ChangePlainAndCardUseCase } from './modules/user/domain/usecases/change_plain_and_card_usecase'
-import { ChangePlainAndCardController } from './modules/user/controller/change_plain_and_card_controller'
+import { ChangePlanAndCardRepositoryImpl } from './modules/user/datasource/change_plan_and_card_repository_impl'
+import { ChangePlanAndCardUseCase } from './modules/user/domain/usecases/change_plan_and_card_usecase'
+import { ChangePlanAndCardController } from './modules/user/controller/change_plan_and_card_controller'
 import { ChangePasswordRepositoryImpl } from './modules/user/datasource/change_password_repository_impl'
 import { ChangePasswordUseCase } from './modules/user/domain/usecases/change_password_usecase'
 import { ChangePasswordController } from './modules/user/controller/change_password.controller'
@@ -108,7 +108,7 @@ const changeNameOrEmailRepository = new ChangeNameOrEmailRepositoryImpl(
   prismaServer
 )
 const changeStatusRepository = new ChangeStatusRepositoryImpl(prismaServer)
-const changePlainAndCardRepository = new ChangePlainAndCardRepositoryImpl(
+const changePlainAndCardRepository = new ChangePlanAndCardRepositoryImpl(
   prismaServer
 )
 const changePasswordRepository = new ChangePasswordRepositoryImpl(prismaServer)
@@ -175,7 +175,7 @@ const changeStatusUseCase = new ChangeStatusUseCase(
   changeStatusRepository,
   validate
 )
-const changePlainAndCardUseCase = new ChangePlainAndCardUseCase(
+const changePlainAndCardUseCase = new ChangePlanAndCardUseCase(
   changePlainAndCardRepository,
   validate
 )
@@ -253,7 +253,7 @@ const changeNameOrEmailController = new ChangeNameOrEmailController(
   changeNameOrEmailUseCase
 )
 const changeStatusController = new ChangeStatusController(changeStatusUseCase)
-const changePlainAndCardController = new ChangePlainAndCardController(
+const changePlainAndCardController = new ChangePlanAndCardController(
   changePlainAndCardUseCase
 )
 const changePasswordController = new ChangePasswordController(

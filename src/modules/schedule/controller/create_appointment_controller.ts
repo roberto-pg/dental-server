@@ -5,7 +5,7 @@ type AppointmentType = {
   id: string
   patientName: string
   cpf: string
-  plain: string
+  plan: string
   card: string
   scheduled: boolean
 }
@@ -18,10 +18,10 @@ class CreateAppointmentController {
   }
 
   async handle(request: Request, response: Response) {
-    const { id, cpf, plain, card, scheduled } = <AppointmentType>request.body
+    const { id, cpf, plan, card, scheduled } = <AppointmentType>request.body
 
     try {
-      const result = await this._useCase.call(id, cpf, plain, card, scheduled)
+      const result = await this._useCase.call(id, cpf, plan, card, scheduled)
 
       return response.json(result)
     } catch (error) {

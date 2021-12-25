@@ -3,7 +3,7 @@ export interface IRemoveAppointmentRepository {
     id: string,
     patientName: string,
     cpf: string,
-    plain: string,
+    plan: string,
     card: string,
     scheduled: boolean,
     editable: boolean

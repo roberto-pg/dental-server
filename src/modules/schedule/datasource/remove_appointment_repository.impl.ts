@@ -11,7 +11,7 @@ class RemoveAppointmentRepositoryImpl implements IRemoveAppointmentRepository {
     id: string,
     patientName: string,
     cpf: string,
-    plain: string,
+    plan: string,
     card: string,
     scheduled: boolean,
     editable: boolean
@@ -23,7 +23,7 @@ class RemoveAppointmentRepositoryImpl implements IRemoveAppointmentRepository {
       data: {
         patient_name: patientName,
         cpf: cpf,
-        plain: plain,
+        plan: plan,
         card: card,
         scheduled: scheduled,
         editable: editable

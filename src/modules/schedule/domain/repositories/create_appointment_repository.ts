@@ -3,7 +3,7 @@ export interface ICreateAppointmentRepository {
     id: string,
     patientName: string,
     cpf: string,
-    plain: string,
+    plan: string,
     card: string,
     scheduled: boolean
   ): Promise<string>

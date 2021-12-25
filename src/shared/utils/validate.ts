@@ -10,7 +10,7 @@ type ScheduleModel = {
   hour: string
   patient_name?: string
   cpf?: string
-  plain?: string
+  plan?: string
   scheduled: boolean
   card?: string
   editable: boolean
@@ -82,11 +82,11 @@ class Validate {
     return appointment
   }
 
-  async verifyPlain(cpf: string, plain: string) {
+  async verifyPlain(cpf: string, plan: string) {
     const user = await this._prismaServer.connectPrisma().user.findFirst({
       where: {
         cpf,
-        plain
+        plan
       }
     })
 

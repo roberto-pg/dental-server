@@ -17,7 +17,7 @@ class RemoveAppointmentUseCase {
     id: string,
     patientName: string,
     cpf: string,
-    plain: string,
+    plan: string,
     card: string,
     scheduled: boolean,
     editable: boolean
@@ -36,7 +36,7 @@ class RemoveAppointmentUseCase {
         id,
         patientName,
         cpf,
-        plain,
+        plan,
         card,
         scheduled,
         editable

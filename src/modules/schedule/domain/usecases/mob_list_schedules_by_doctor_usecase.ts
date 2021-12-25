@@ -37,7 +37,7 @@ class MobListSchedulesByDoctorUseCase {
           hour: schedule.hour,
           patientName: schedule.patient_name,
           cpf: schedule.cpf,
-          plain: schedule.plain,
+          plan: schedule.plan,
           card: schedule.card,
           scheduled: schedule.scheduled,
           editable: schedule.editable

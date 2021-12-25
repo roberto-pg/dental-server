@@ -9,7 +9,7 @@ export default class CreateUserController {
   }
 
   async handle(request: Request, response: Response) {
-    const { name, email, cpf, password, card, plain, active, admin } =
+    const { name, email, cpf, password, card, plan, active, admin } =
       request.body
 
     try {
@@ -19,7 +19,7 @@ export default class CreateUserController {
         cpf,
         password,
         card,
-        plain,
+        plan,
         active,
         admin
       )

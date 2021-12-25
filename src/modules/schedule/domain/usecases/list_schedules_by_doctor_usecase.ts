@@ -12,7 +12,7 @@ type ScheduleModel = {
   hour: string
   patient_name?: string
   cpf?: string
-  plain?: string
+  plan?: string
   scheduled: boolean
   card?: string
   editable: boolean
@@ -57,7 +57,7 @@ class ListSchedulesByDoctorUseCase {
             hour: doctorSchedule.hour,
             patientName: doctorSchedule.patient_name,
             cpf: doctorSchedule.cpf,
-            plain: doctorSchedule.plain,
+            plan: doctorSchedule.plan,
             card: doctorSchedule.card,
             scheduled: doctorSchedule.scheduled,
             editable: doctorSchedule.editable

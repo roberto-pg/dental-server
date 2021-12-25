@@ -24,7 +24,7 @@ class CreateUserUseCase {
     cpf: string,
     password: string,
     card: string,
-    plain: string,
+    plan: string,
     active: boolean,
     admin: boolean
   ) {
@@ -60,14 +60,14 @@ class CreateUserUseCase {
       throw customException('A senha deve ter ao menos 6 caracteres')
     }
 
-    if (plain === '' || plain === 'Nome do convênio') {
+    if (plan === '' || plan === 'Nome do convênio') {
       throw customException('Informe o nome do convênio')
     }
 
-    if (plain === 'Particular' && card !== '')
+    if (plan === 'Particular' && card !== '')
       customException('Paciente particular não usa código de beneficiário')
 
-    if (plain !== 'Particular' && card === '') {
+    if (plan !== 'Particular' && card === '') {
       throw customException('Informe o código do beneficiário')
     }
 
@@ -79,7 +79,7 @@ class CreateUserUseCase {
         cpf,
         hashPassword,
         card,
-        plain,
+        plan,
         active,
         admin
       )
