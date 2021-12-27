@@ -312,7 +312,7 @@ router.post('/logout/:id', protectedRoute, logoutUserController.handle)
 
 router.post('/users', createUserController.handle)
 router.get('/users', protectedRoute, listUsersController.handle)
-router.get('/users/:id', protectedRoute, listUserByIdController.handle)
+router.get('/user-id/:id', protectedRoute, listUserByIdController.handle)
 router.delete('/delete-user/:id', protectedRoute, removeUserController.handle)
 router.patch('/user-name', protectedRoute, changeNameController.handle)
 router.patch('/user-email', protectedRoute, changeEmailController.handle)
