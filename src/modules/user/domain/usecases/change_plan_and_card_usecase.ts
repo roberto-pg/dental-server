@@ -24,8 +24,12 @@ class ChangePlanAndCardUseCase {
       throw customException('Informe o nome do convênio')
     }
 
-    if (plan !== 'Particular' && card === '') {
+    if (plan !== 'Particular' && !card) {
       throw customException('Informe o código do beneficiário')
+    }
+
+    if (plan === 'Particular' && card !== '') {
+      throw customException('Remova o código do beneficiário')
     }
 
     try {

@@ -318,7 +318,7 @@ router.patch('/user-name', protectedRoute, changeNameController.handle)
 router.patch('/user-email', protectedRoute, changeEmailController.handle)
 router.patch('/user-active', protectedRoute, changeStatusController.handle)
 router.patch(
-  '/users/plain-and-card',
+  '/user-plain-and-card',
   protectedRoute,
   changePlainAndCardController.handle
 )

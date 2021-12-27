@@ -9,10 +9,10 @@ class ChangePlanAndCardController {
   }
 
   async handle(request: Request, response: Response) {
-    const { id, plain, card } = request.body
+    const { id, plan, card } = request.body
 
     try {
-      const result = await this._useCase.call(id, plain, card)
+      const result = await this._useCase.call(id, plan, card)
 
       return response.json(result)
     } catch (error) {
