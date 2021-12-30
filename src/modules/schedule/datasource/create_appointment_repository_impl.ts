@@ -8,7 +8,7 @@ class CreateAppointmentRepositoryImpl implements ICreateAppointmentRepository {
   }
 
   async execute(
-    id: string,
+    scheduleId: string,
     patientName: string,
     cpf: string,
     plan: string,
@@ -19,7 +19,7 @@ class CreateAppointmentRepositoryImpl implements ICreateAppointmentRepository {
       .connectPrisma()
       .schedule.update({
         where: {
-          id: id
+          id: scheduleId
         },
         data: {
           patient_name: patientName,

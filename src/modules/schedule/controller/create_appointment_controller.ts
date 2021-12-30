@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { CreateAppointmentUseCase } from '../domain/usecases/create_appointment_usecase'
 
 type AppointmentType = {
-  id: string
+  scheduleId: string
   patientName: string
   cpf: string
   plan: string
@@ -18,10 +18,18 @@ class CreateAppointmentController {
   }
 
   async handle(request: Request, response: Response) {
-    const { id, cpf, plan, card, scheduled } = <AppointmentType>request.body
+    const { scheduleId, cpf, plan, card, scheduled } = <AppointmentType>(
+      request.body
+    )
 
     try {
-      const result = await this._useCase.call(id, cpf, plan, card, scheduled)
+      const result = await this._useCase.call(
+        scheduleId,
+        cpf,
+        plan,
+        card,
+        scheduled
+      )
 
       return response.json(result)
     } catch (error) {

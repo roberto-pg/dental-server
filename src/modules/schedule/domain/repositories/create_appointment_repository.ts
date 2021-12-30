@@ -1,6 +1,6 @@
 export interface ICreateAppointmentRepository {
   execute(
-    id: string,
+    scheduleId: string,
     patientName: string,
     cpf: string,
     plan: string,

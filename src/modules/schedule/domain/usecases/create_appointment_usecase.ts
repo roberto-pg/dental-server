@@ -18,15 +18,15 @@ class CreateAppointmentUseCase {
   }
 
   async call(
-    id: string,
+    scheduleId: string,
     cpf: string,
     plan: string,
     card: string,
     scheduled: boolean
   ) {
-    if (!id) throw customException('Informe o ID do agendamento')
+    if (!scheduleId) throw customException('Informe o ID do agendamento')
 
-    const appointmentId = await this._validate.verifyAppointmentId(id)
+    const appointmentId = await this._validate.verifyAppointmentId(scheduleId)
 
     if (!appointmentId) throw customException('Agendamento não disponível')
 
@@ -68,7 +68,7 @@ class CreateAppointmentUseCase {
 
     try {
       const appointments = await this._repository.execute(
-        id,
+        scheduleId,
         patientName,
         cpf,
         plan,
