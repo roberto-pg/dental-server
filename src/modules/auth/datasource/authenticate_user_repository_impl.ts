@@ -13,6 +13,8 @@ export class AuthenticateUserRepositoryImpl
     id: string
     name: string
     cpf: string
+    plan: string
+    card: string
     password: string
   }> {
     const user = await this._prismaServer.connectPrisma().user.findUnique({

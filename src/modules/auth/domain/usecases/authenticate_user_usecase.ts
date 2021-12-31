@@ -47,6 +47,8 @@ class AuthenticateUserUseCase {
       id: user.id,
       name: user.name,
       cpf: user.cpf,
+      plan: user.plan,
+      card: user.card,
       token: token
     }
 

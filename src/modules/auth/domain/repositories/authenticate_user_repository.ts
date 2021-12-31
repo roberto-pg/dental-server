@@ -4,8 +4,8 @@ type AuthenticatedModel = {
   email?: string
   cpf: string
   password: string
-  card?: string
-  plain?: string
+  card: string
+  plan: string
   active?: boolean
   admin?: boolean
 }

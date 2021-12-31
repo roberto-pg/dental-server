@@ -5,7 +5,7 @@ type AuthenticatedModel = {
   cpf: string
   password: string
   card?: string
-  plain?: string
+  plan?: string
   active?: boolean
   admin?: boolean
 }
