@@ -9,10 +9,7 @@ class ListAppointmentByCpfRepositoryImpl
     this._prismaServer = prismaServer
   }
 
-  async execute(
-    cfp: string,
-    currentDay: Date
-  ): Promise<
+  async execute(cfp: string): Promise<
     {
       id: string
       doctor_id: string
@@ -34,10 +31,7 @@ class ListAppointmentByCpfRepositoryImpl
       .schedule.findMany({
         where: {
           cpf: cfp,
-          scheduled: true,
-          month_day: {
-            gte: currentDay.toISOString()
-          }
+          scheduled: true
         },
         orderBy: [
           {

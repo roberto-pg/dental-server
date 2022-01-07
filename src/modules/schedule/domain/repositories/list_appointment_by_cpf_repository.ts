@@ -15,5 +15,5 @@ type ScheduleModel = {
 }
 
 export interface IListAppointmentByCpfRepository {
-  execute(cfp: string, currentDay: Date): Promise<ScheduleModel[]>
+  execute(cfp: string): Promise<ScheduleModel[]>
 }

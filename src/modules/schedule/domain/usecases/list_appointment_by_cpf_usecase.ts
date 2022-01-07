@@ -25,10 +25,7 @@ class ListAppointmentByCpfUseCase {
     }
 
     try {
-      const currentDay = new Date()
-      currentDay.setHours(0, 0, 0, 0)
-
-      const appointments = await this._repository.execute(cpf, currentDay)
+      const appointments = await this._repository.execute(cpf)
 
       const serializedAppointments = appointments.map((appointment) => {
         return {
