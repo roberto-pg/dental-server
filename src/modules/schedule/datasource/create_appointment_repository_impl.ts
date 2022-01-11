@@ -26,7 +26,8 @@ class CreateAppointmentRepositoryImpl implements ICreateAppointmentRepository {
           cpf: cpf,
           plan: plan,
           card: card,
-          scheduled: scheduled
+          scheduled: scheduled,
+          editable: false
         }
       })
 
