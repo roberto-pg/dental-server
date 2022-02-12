@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
-import { ListDoctorsByIdUseCase } from '../domain/usecases/list_doctors_by_id_usecase'
+import { ListDoctorByIdUseCase } from '../domain/usecases/list_doctor_by_id_usecase'
 
-class ListDoctorsByIdController {
-  private _useCase: ListDoctorsByIdUseCase
-  constructor(readonly useCase: ListDoctorsByIdUseCase) {
+class ListDoctorByIdController {
+  private _useCase: ListDoctorByIdUseCase
+  constructor(readonly useCase: ListDoctorByIdUseCase) {
     this._useCase = useCase
     this.handle = this.handle.bind(this)
   }
@@ -20,4 +20,4 @@ class ListDoctorsByIdController {
   }
 }
 
-export { ListDoctorsByIdController }
+export { ListDoctorByIdController }

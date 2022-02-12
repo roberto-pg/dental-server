@@ -1,12 +1,12 @@
-import { IListDoctorsByIdRepository } from '../repositories/list_doctors_by_id_repository'
+import { IListDoctorByIdRepository } from '../repositories/list_doctor_by_id_repository'
 import { customException } from '../../../../shared/errors/custom_exception'
 import { Validate } from '../../../../shared/utils/validate'
 
-class ListDoctorsByIdUseCase {
-  private _repository: IListDoctorsByIdRepository
+class ListDoctorByIdUseCase {
+  private _repository: IListDoctorByIdRepository
   private _validate: Validate
   constructor(
-    readonly repository: IListDoctorsByIdRepository,
+    readonly repository: IListDoctorByIdRepository,
     readonly validate: Validate
   ) {
     this._repository = repository
@@ -39,4 +39,4 @@ class ListDoctorsByIdUseCase {
   }
 }
 
-export { ListDoctorsByIdUseCase }
+export { ListDoctorByIdUseCase }

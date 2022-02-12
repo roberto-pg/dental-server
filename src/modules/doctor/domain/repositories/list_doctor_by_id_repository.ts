@@ -7,6 +7,6 @@ type DoctorModel = {
   active: boolean
 }
 
-export interface IListDoctorsByIdRepository {
+export interface IListDoctorByIdRepository {
   execute(id: string): Promise<DoctorModel>
 }

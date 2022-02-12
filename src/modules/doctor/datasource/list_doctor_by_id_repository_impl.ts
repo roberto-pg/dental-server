@@ -1,7 +1,7 @@
-import { IListDoctorsByIdRepository } from '../domain/repositories/list_doctors_by_id_repository'
+import { IListDoctorByIdRepository } from '../domain/repositories/list_doctor_by_id_repository'
 import IHttpService from '../../../shared/prisma/http_service'
 
-class ListDoctorsByIdRepositoryImpl implements IListDoctorsByIdRepository {
+class ListDoctorByIdRepositoryImpl implements IListDoctorByIdRepository {
   private _prismaServer: IHttpService
   constructor(readonly prismaServer: IHttpService) {
     this._prismaServer = prismaServer
@@ -25,4 +25,4 @@ class ListDoctorsByIdRepositoryImpl implements IListDoctorsByIdRepository {
   }
 }
 
-export { ListDoctorsByIdRepositoryImpl }
+export { ListDoctorByIdRepositoryImpl }
