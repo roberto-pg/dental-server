@@ -22,8 +22,8 @@ class MobListSchedulesByDoctorUseCase {
 
     try {
       const currentDay = new Date()
+      currentDay.setDate(currentDay.getDate() + 1)
       currentDay.setHours(0, 0, 0, 0)
-
       const schedules = await this._repository.execute(doctorId, currentDay)
 
       const serializedSchedules = schedules.map((schedule) => {
