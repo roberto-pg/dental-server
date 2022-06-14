@@ -19,17 +19,6 @@ services:
     networks:
       - care
 
-  # nginx:
-  #   image: nginx
-  #   container_name: care-nginx
-  #   ports:
-  #     - "8282:80"
-  #   volumes:
-  #     - /home/rpg/Docker/care-nginx/html:/usr/share/nginx/html
-  #   restart: always
-  #   networks:
-  #     - care
-
   app:
     image: node:current-alpine
     container_name: care-server
