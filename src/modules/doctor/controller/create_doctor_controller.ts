@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { CreateDoctorUseCase } from '../domain/usecases/create_doctor_usecase'
-require('dotenv').config()
+import 'dotenv/config'
 
 class CreateDoctorController {
   private _useCase: CreateDoctorUseCase

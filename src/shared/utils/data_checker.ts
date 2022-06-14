@@ -1,5 +1,5 @@
 class DataChecker {
-  cpfChecker(cpf: String) {
+  cpfChecker(cpf: string) {
     let soma = 0
     let resto = 0
     let i = 0

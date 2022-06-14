@@ -35,8 +35,8 @@ export class CreateUserRepositoryImpl implements ICreateUserRepository {
         card,
         plan,
         active,
-        admin
-      }
+        admin,
+      },
     })
     return user
   }

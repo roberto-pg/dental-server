@@ -10,8 +10,8 @@ class RemoveDoctorRepositoryImpl implements IRemoveDoctorRepository {
   async execute(id: string): Promise<string> {
     const doctor = await this._prismaServer.connectPrisma().doctor.delete({
       where: {
-        id: id
-      }
+        id: id,
+      },
     })
     return doctor.id
   }

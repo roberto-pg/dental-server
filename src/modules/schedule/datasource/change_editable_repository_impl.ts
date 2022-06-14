@@ -12,11 +12,11 @@ class ChangeEditableRepositoryImpl implements IChangeEditableRepository {
       .connectPrisma()
       .schedule.update({
         where: {
-          id: id
+          id: id,
         },
         data: {
-          editable: editable
-        }
+          editable: editable,
+        },
       })
 
     return appointment.id

@@ -3,7 +3,7 @@ import { protectedRoute } from './middleware/protected_route'
 import {
   authenticateAdminController,
   authenticateUserController,
-  logoutUserController
+  logoutUserController,
 } from './modules/factories/auth'
 import {
   changeDoctorStatusController,
@@ -11,7 +11,7 @@ import {
   listDoctorByIdController,
   listDoctorsBySpecialtyController,
   listDoctorsController,
-  removeDoctorController
+  removeDoctorController,
 } from './modules/factories/doctor'
 import {
   changeEditableController,
@@ -23,7 +23,7 @@ import {
   listSchedulesController,
   mobListSchedulesByDoctorController,
   removeAppointmentController,
-  removeScheduleController
+  removeScheduleController,
 } from './modules/factories/schedule'
 import {
   changeEmailController,
@@ -34,9 +34,11 @@ import {
   createUserController,
   listUserByIdController,
   listUsersController,
-  removeUserController
+  removeUserController,
 } from './modules/factories/user'
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const multer = require('multer')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const multerConfig = require('./middleware/multer')
 
 const router = Router()

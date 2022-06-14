@@ -32,16 +32,16 @@ class ListSchedulesByDoctorRepositoryImpl
       .connectPrisma()
       .schedule.findMany({
         where: {
-          doctor_id: doctorId
+          doctor_id: doctorId,
         },
         orderBy: [
           {
-            month_day: 'asc'
+            month_day: 'asc',
           },
           {
-            hour: 'asc'
-          }
-        ]
+            hour: 'asc',
+          },
+        ],
       })
 
     return schedules

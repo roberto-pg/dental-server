@@ -39,7 +39,7 @@ class ListSchedulesByDoctorUseCase {
     try {
       const currentDay = new Date()
       currentDay.setHours(0, 0, 0, 0)
-      const filteredSchedules = []
+      const filteredSchedules: any[] = []
 
       const schedules = await this._repository.execute(doctorId, currentDay)
 
@@ -60,7 +60,7 @@ class ListSchedulesByDoctorUseCase {
             plan: doctorSchedule.plan,
             card: doctorSchedule.card,
             scheduled: doctorSchedule.scheduled,
-            editable: doctorSchedule.editable
+            editable: doctorSchedule.editable,
           })
         }
         return filteredSchedules

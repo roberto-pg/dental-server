@@ -10,7 +10,7 @@ class LogoutUserController {
 
   async handle(request: Request, response: Response) {
     const { id } = request.params
-    const token = request.headers.authorization.split(' ')[1]
+    const token = request.headers.authorization?.split(' ')[1]
     // const [, token] = request.headers.authorization.split(' ')
 
     try {

@@ -41,7 +41,7 @@ class ListAppointmentByCpfUseCase {
           plan: appointment.plan,
           card: appointment.card,
           scheduled: appointment.scheduled,
-          editable: appointment.editable
+          editable: appointment.editable,
         }
       })
 

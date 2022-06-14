@@ -36,17 +36,17 @@ class MobListSchedulesByDoctorRepositoryImpl
           doctor_id: doctorId,
           scheduled: false,
           month_day: {
-            gte: currentDay.toISOString()
-          }
+            gte: currentDay.toISOString(),
+          },
         },
         orderBy: [
           {
-            month_day: 'asc'
+            month_day: 'asc',
           },
           {
-            hour: 'asc'
-          }
-        ]
+            hour: 'asc',
+          },
+        ],
       })
 
     return schedules

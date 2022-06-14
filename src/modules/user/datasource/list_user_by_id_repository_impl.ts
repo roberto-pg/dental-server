@@ -19,7 +19,7 @@ class ListUserByIdRepositoryImpl implements IListUserByIdRepository {
   }> {
     const user = await this._prismaServer.connectPrisma().user.findUnique({
       where: {
-        id
+        id,
       },
       select: {
         id: true,
@@ -30,8 +30,8 @@ class ListUserByIdRepositoryImpl implements IListUserByIdRepository {
         card: true,
         plan: true,
         active: true,
-        admin: true
-      }
+        admin: true,
+      },
     })
 
     return user

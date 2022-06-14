@@ -3,7 +3,7 @@ import { ChangePlanAndCardUseCase } from '../domain/usecases/change_plan_and_car
 
 class ChangePlanAndCardController {
   private _useCase: ChangePlanAndCardUseCase
-  constructor(readonly useCase) {
+  constructor(readonly useCase: ChangePlanAndCardUseCase) {
     this._useCase = useCase
     this.handle = this.handle.bind(this)
   }

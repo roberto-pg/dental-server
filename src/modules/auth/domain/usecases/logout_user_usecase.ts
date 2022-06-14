@@ -3,7 +3,7 @@ import { Validate } from '../../../../shared/utils/validate'
 import { customException } from '../../../../shared/errors/custom_exception'
 import {
   setBlackList,
-  deleteUserCache
+  deleteUserCache,
 } from '../../../../shared/redis/redis_service'
 
 class LogoutUserUseCase {

@@ -21,8 +21,8 @@ class ListDoctorsBySpecialtyRepositoryImpl
   > {
     const doctors = await this._prismaServer.connectPrisma().doctor.findMany({
       where: {
-        specialty: specialty
-      }
+        specialty: specialty,
+      },
     })
 
     return doctors

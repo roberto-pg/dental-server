@@ -12,11 +12,11 @@ class ChangeDoctorStatusRepositoryImpl
   async execute(id: string, active: boolean): Promise<string> {
     const doctor = await this._prismaServer.connectPrisma().doctor.update({
       where: {
-        id
+        id,
       },
       data: {
-        active: active
-      }
+        active: active,
+      },
     })
 
     return doctor.id

@@ -24,8 +24,8 @@ class CreateDoctorRepositoryImpl implements ICreateDoctorRepository {
         name,
         specialty,
         image_url,
-        bio
-      }
+        bio,
+      },
     })
 
     return doctor

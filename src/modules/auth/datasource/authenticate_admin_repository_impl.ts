@@ -18,8 +18,8 @@ export class AuthenticateAdminRepositoryImpl
   }> {
     const user = await this._prismaServer.connectPrisma().user.findUnique({
       where: {
-        cpf
-      }
+        cpf,
+      },
     })
 
     return user

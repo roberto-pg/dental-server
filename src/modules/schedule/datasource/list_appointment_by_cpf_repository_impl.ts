@@ -31,16 +31,16 @@ class ListAppointmentByCpfRepositoryImpl
       .schedule.findMany({
         where: {
           cpf: cfp,
-          scheduled: true
+          scheduled: true,
         },
         orderBy: [
           {
-            month_day: 'asc'
+            month_day: 'asc',
           },
           {
-            hour: 'asc'
-          }
-        ]
+            hour: 'asc',
+          },
+        ],
       })
 
     return schedules

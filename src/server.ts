@@ -1,7 +1,7 @@
 import cors from 'cors'
 import express from 'express'
 import { router } from './routes'
-require('dotenv').config()
+import 'dotenv/config'
 
 const port = process.env.PORT || 3335
 

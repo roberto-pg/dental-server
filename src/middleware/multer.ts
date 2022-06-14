@@ -13,10 +13,10 @@ module.exports = {
         const fileName = `${hash.toString('hex')}-${file.originalname}`
         cb(null, fileName)
       })
-    }
+    },
   }),
   limits: {
-    fileSize: 2 * 1024 * 1024
+    fileSize: 2 * 1024 * 1024,
   },
   fileFilter: (req: express.Request, file: any, cb: any) => {
     const allowedMimes = ['image/png', 'image/jpg', 'image/jpeg', 'image/gif']
@@ -26,5 +26,5 @@ module.exports = {
     } else {
       cb(new Error('Invalide file type.'))
     }
-  }
+  },
 }

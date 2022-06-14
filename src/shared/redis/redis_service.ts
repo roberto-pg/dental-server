@@ -1,4 +1,5 @@
-require('dotenv').config()
+import 'dotenv/config'
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const Redis = require('./redis_connection').redisClient
 
 Redis.on('connect', () => {

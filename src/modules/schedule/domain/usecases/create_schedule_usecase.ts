@@ -66,7 +66,7 @@ class CreateScheduleUseCase {
         plan: plan,
         card: card,
         scheduled: scheduled,
-        editable: editable
+        editable: editable,
       }
     })
 

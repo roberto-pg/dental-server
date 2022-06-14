@@ -1,47 +1,47 @@
-version: "3"
+version: '3'
 
 networks:
   care:
     driver: bridge
 
-services: 
+services:
   postgres:
     image: bitnami/postgresql:latest
     container_name: care-postgres
-    volumes: 
-      - /home/rpg/Docker/care-postgres:/bitnami/postgresql
+    volumes:
+      - /home/rpg/docker/care-postgres:/bitnami/postgresql
     restart: always
     environment:
       - POSTGRESQL_POSTGRES_PASSWORD=${DB_PASS_ROOT}
-      - POSTGRESQL_DATABASE=${DB_NAME} 
+      - POSTGRESQL_DATABASE=${DB_NAME}
       - POSTGRESQL_USERNAME=${DB_USER}
       - POSTGRESQL_PASSWORD=${DB_PASS}
-    networks: 
-      - care
-
-  nginx:
-    image: nginx
-    container_name: care-nginx
-    ports:
-      - "8282:80"
-    volumes:
-      - /home/rpg/Docker/care-nginx/html:/usr/share/nginx/html
-    restart: always
     networks:
       - care
-       
+
+  # nginx:
+  #   image: nginx
+  #   container_name: care-nginx
+  #   ports:
+  #     - "8282:80"
+  #   volumes:
+  #     - /home/rpg/Docker/care-nginx/html:/usr/share/nginx/html
+  #   restart: always
+  #   networks:
+  #     - care
+
   app:
     image: node:current-alpine
     container_name: care-server
     ports:
-      - "3335:3335"
+      - '3335:3335'
     working_dir: /usr/app
-    volumes: 
+    volumes:
       - .:/usr/app
-      - /home/rpg/Docker/care-nginx/html:/usr/app/public/images
-    command: sh -c "yarn && yarn build && yarn start" 
+      - /home/rpg/docker/nginx/dental:/usr/app/public/images
+    command: sh -c "yarn && yarn build && yarn start"
     restart: always
-    networks: 
+    networks:
       - care
 
   redis:
@@ -50,8 +50,6 @@ services:
     environment:
       - ALLOW_EMPTY_PASSWORD=no
       - REDIS_PASSWORD=${REDIS_PASS}
-    restart: "always"
-    networks: 
+    restart: 'always'
+    networks:
       - care
-
-    

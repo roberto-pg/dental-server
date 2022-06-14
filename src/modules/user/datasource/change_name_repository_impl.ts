@@ -10,11 +10,11 @@ class ChangeNameRepositoryImpl implements IChangeNameRepository {
   async execute(id: string, name: string): Promise<string> {
     const user = await this._prismaServer.connectPrisma().user.update({
       where: {
-        id
+        id,
       },
       data: {
-        name: name
-      }
+        name: name,
+      },
     })
 
     return user.id

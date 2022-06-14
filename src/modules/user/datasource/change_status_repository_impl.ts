@@ -10,11 +10,11 @@ class ChangeStatusRepositoryImpl implements IChangeStatusRepository {
   async execute(id: string, active: boolean): Promise<string> {
     const user = await this._prismaServer.connectPrisma().user.update({
       where: {
-        id
+        id,
       },
       data: {
-        active: active
-      }
+        active: active,
+      },
     })
 
     return user.id

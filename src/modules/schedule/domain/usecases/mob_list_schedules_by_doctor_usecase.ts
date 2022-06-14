@@ -40,7 +40,7 @@ class MobListSchedulesByDoctorUseCase {
           plan: schedule.plan,
           card: schedule.card,
           scheduled: schedule.scheduled,
-          editable: schedule.editable
+          editable: schedule.editable,
         }
       })
 

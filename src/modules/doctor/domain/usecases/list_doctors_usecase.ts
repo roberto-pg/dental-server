@@ -18,13 +18,13 @@ class ListDoctorsUseCase {
           specialty: doctor.specialty,
           imageUrl: doctor.image_url,
           bio: doctor.bio,
-          active: doctor.active
+          active: doctor.active,
         }
       })
 
       return serializedDoctors
     } catch (error) {
-      customException('Erro na busca')
+      throw customException('Erro na busca')
     }
   }
 }

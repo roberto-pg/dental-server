@@ -29,12 +29,12 @@ class ListSchedulesRepositoryImpl implements IListSchedulesRepository {
       .schedule.findMany({
         orderBy: [
           {
-            month_day: 'asc'
+            month_day: 'asc',
           },
           {
-            hour: 'asc'
-          }
-        ]
+            hour: 'asc',
+          },
+        ],
       })
 
     return schedules

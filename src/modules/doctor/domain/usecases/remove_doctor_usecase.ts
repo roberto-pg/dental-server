@@ -2,7 +2,7 @@ import fs from 'fs'
 import { IRemoveDoctorRepository } from '../repositories/remove_doctor_repository'
 import { Validate } from '../../../../shared/utils/validate'
 import { customException } from '../../../../shared/errors/custom_exception'
-require('dotenv').config()
+import 'dotenv/config'
 
 class RemoveDoctorUseCase {
   private _repository: IRemoveDoctorRepository
@@ -24,7 +24,7 @@ class RemoveDoctorUseCase {
 
     try {
       const userId = await this._repository.execute(id)
-      const imageName = doctor.image_url.split('/')[3]
+      const imageName = doctor?.image_url.split('/')[4]
 
       fs.unlink(process.env.IMAGE_STORAGE + '/' + imageName, function (err) {
         if (err) {

@@ -21,7 +21,7 @@ class CreateScheduleController {
       card,
       scheduled,
       editable,
-      timeToSchedule
+      timeToSchedule,
     } = request.body
 
     try {

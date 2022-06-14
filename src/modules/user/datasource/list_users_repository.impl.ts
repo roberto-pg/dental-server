@@ -29,8 +29,8 @@ export class ListUsersRepositoryImpl implements IListUsersRepository {
         card: true,
         plan: true,
         active: true,
-        admin: true
-      }
+        admin: true,
+      },
     })
 
     return users

@@ -10,11 +10,11 @@ class ChangePasswordRepositoryImpl implements IChangePasswordRepository {
   async execute(id: string, password: string): Promise<string> {
     const user = await this._prismaServer.connectPrisma().user.update({
       where: {
-        id
+        id,
       },
       data: {
-        password: password
-      }
+        password: password,
+      },
     })
 
     return user.id

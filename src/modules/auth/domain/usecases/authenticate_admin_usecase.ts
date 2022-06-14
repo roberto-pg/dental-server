@@ -42,7 +42,7 @@ class AuthenticateAdminUseCase {
     }
 
     const token = sign({ sub: user.id }, process.env.JWT_SECRET, {
-      expiresIn: parseInt(process.env.LOGIN_EXPIRATION_TIME)
+      expiresIn: parseInt(process.env.LOGIN_EXPIRATION_TIME),
     })
 
     setUserCache(user.id)
@@ -51,7 +51,7 @@ class AuthenticateAdminUseCase {
       id: user.id,
       name: user.name,
       cpf: user.cpf,
-      token: token
+      token: token,
     }
 
     return serializedUser

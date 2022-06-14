@@ -24,7 +24,7 @@ class CreateScheduleRepositoryImpl implements ICreateScheduleRepository {
     }[]
   ): Promise<string> {
     await this._prismaServer.connectPrisma().schedule.createMany({
-      data: newSchedules
+      data: newSchedules,
     })
 
     return 'Agendamento criado com sucesso'

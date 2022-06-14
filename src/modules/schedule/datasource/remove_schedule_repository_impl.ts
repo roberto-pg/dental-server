@@ -10,8 +10,8 @@ class RemoveScheduleRepositoryImpl implements IRemoveScheduleRepository {
   async execute(id: string): Promise<string> {
     const schedule = await this._prismaServer.connectPrisma().schedule.delete({
       where: {
-        id: id
-      }
+        id: id,
+      },
     })
 
     return schedule.id

@@ -30,8 +30,8 @@ class ListSchedulesByScheduledRepositoryImpl
       .connectPrisma()
       .schedule.findMany({
         where: {
-          scheduled: scheduledBool
-        }
+          scheduled: scheduledBool,
+        },
       })
     return schedules
   }

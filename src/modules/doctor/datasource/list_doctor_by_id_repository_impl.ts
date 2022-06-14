@@ -17,8 +17,8 @@ class ListDoctorByIdRepositoryImpl implements IListDoctorByIdRepository {
   }> {
     const doctor = await this._prismaServer.connectPrisma().doctor.findUnique({
       where: {
-        id: id
-      }
+        id: id,
+      },
     })
 
     return doctor

@@ -19,8 +19,8 @@ export class AuthenticateUserRepositoryImpl
   }> {
     const user = await this._prismaServer.connectPrisma().user.findUnique({
       where: {
-        cpf: cpf
-      }
+        cpf: cpf,
+      },
     })
 
     return user

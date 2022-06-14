@@ -33,7 +33,7 @@ class CreateDoctorUseCase {
         name: doctor.name,
         specialty: doctor.specialty,
         imageUrl: doctor.image_url,
-        bio: doctor.bio
+        bio: doctor.bio,
       }
 
       return serializedDoctor
