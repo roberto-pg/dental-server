@@ -1,5 +1,6 @@
 import { ICreateUserRepository } from '../domain/repositories/create_user_repository'
 import IHttpService from '../../../shared/prisma/http_service'
+import { UserModel } from '../../../shared/types'
 
 export class CreateUserRepositoryImpl implements ICreateUserRepository {
   private _prismaServer: IHttpService
@@ -16,16 +17,7 @@ export class CreateUserRepositoryImpl implements ICreateUserRepository {
     plan: string,
     active: boolean,
     admin: boolean
-  ): Promise<{
-    name: string
-    email: string
-    cpf: string
-    password: string
-    card: string
-    plan: string
-    active: boolean
-    admin: boolean
-  }> {
+  ): Promise<UserModel> {
     const user = await this._prismaServer.connectPrisma().user.create({
       data: {
         name,

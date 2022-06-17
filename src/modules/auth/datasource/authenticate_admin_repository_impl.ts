@@ -1,5 +1,6 @@
 import { IAuthenticateAdminRepository } from '../domain/repositories/authenticate_admin_repository'
 import IHttpService from '../../../shared/prisma/http_service'
+import { AuthenticatedModel } from '../../../shared/types'
 
 export class AuthenticateAdminRepositoryImpl
   implements IAuthenticateAdminRepository
@@ -9,14 +10,8 @@ export class AuthenticateAdminRepositoryImpl
     this._prismaServer = prismaServer
   }
 
-  async execute(cpf: string): Promise<{
-    id: string
-    name: string
-    cpf: string
-    password: string
-    admin: boolean
-  }> {
-    const user = await this._prismaServer.connectPrisma().user.findUnique({
+  async execute(cpf: string): Promise<AuthenticatedModel | null> {
+    const user = await this._prismaServer.connectPrisma().user.findFirst({
       where: {
         cpf,
       },

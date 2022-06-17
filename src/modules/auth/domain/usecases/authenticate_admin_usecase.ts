@@ -33,7 +33,7 @@ class AuthenticateAdminUseCase {
 
     const user = await this._repository.execute(cpf)
 
-    if (!user.admin) {
+    if (!user?.admin) {
       throw customException('Acesso permitido somente para administradores')
     }
 
@@ -41,8 +41,8 @@ class AuthenticateAdminUseCase {
       throw customException('Senha inválida')
     }
 
-    const token = sign({ sub: user.id }, process.env.JWT_SECRET, {
-      expiresIn: parseInt(process.env.LOGIN_EXPIRATION_TIME),
+    const token = sign({ sub: user.id }, process.env.JWT_SECRET ?? '', {
+      expiresIn: parseInt(process.env.LOGIN_EXPIRATION_TIME ?? ''),
     })
 
     setUserCache(user.id)

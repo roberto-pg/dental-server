@@ -33,22 +33,22 @@ class AuthenticateUserUseCase {
 
     const user = await this._repository.execute(cpf)
 
-    if (!(await bcrypt.compare(password, user.password))) {
+    if (!(await bcrypt.compare(password, user?.password ?? ''))) {
       throw customException('Senha inválida')
     }
 
-    const token = sign({ sub: user.id }, process.env.JWT_SECRET, {
-      expiresIn: parseInt(process.env.LOGIN_EXPIRATION_TIME),
+    const token = sign({ sub: user?.id }, process.env.JWT_SECRET ?? '', {
+      expiresIn: parseInt(process.env.LOGIN_EXPIRATION_TIME ?? ''),
     })
 
-    setUserCache(user.id)
+    setUserCache(user?.id ?? '')
 
     const serializedUser = {
-      id: user.id,
-      name: user.name,
-      cpf: user.cpf,
-      plan: user.plan,
-      card: user.card,
+      id: user?.id,
+      name: user?.name,
+      cpf: user?.cpf,
+      plan: user?.plan,
+      card: user?.card,
       token: token,
     }
 

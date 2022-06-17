@@ -1,5 +1,6 @@
 import { ICreateDoctorRepository } from '../domain/repositories/create_doctor_repository'
 import IHttpService from '../../../shared/prisma/http_service'
+import { DoctorModel } from '../../../shared/types/doctor_model'
 
 class CreateDoctorRepositoryImpl implements ICreateDoctorRepository {
   private _prismaServer: IHttpService
@@ -12,13 +13,7 @@ class CreateDoctorRepositoryImpl implements ICreateDoctorRepository {
     specialty: string,
     image_url: string,
     bio: string
-  ): Promise<{
-    id: string
-    name: string
-    specialty: string
-    image_url: string
-    bio: string
-  }> {
+  ): Promise<DoctorModel> {
     const doctor = await this._prismaServer.connectPrisma().doctor.create({
       data: {
         name,

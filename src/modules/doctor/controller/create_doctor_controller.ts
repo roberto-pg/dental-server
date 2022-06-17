@@ -10,7 +10,7 @@ class CreateDoctorController {
   }
 
   async handle(request: Request, response: Response) {
-    const imageUrl = process.env.DIR_IMAGE + request.file.filename
+    const imageUrl = (process.env.DIR_IMAGE ?? '') + request.file?.filename
     const { name, specialty, bio } = request.body
 
     try {

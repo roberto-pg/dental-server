@@ -1,22 +1,7 @@
 import { ICreateScheduleRepository } from '../repositories/create_schedule_repository'
 import { Validate } from '../../../../shared/utils/validate'
 import { customException } from '../../../../shared/errors/custom_exception'
-
-type ScheduleModel = {
-  id?: string
-  doctor_id: string
-  doctor_name: string
-  specialty: string
-  month_day: string
-  week_day: string
-  hour: string
-  patient_name?: string
-  cpf?: string
-  plan?: string
-  scheduled: boolean
-  card?: string
-  editable: boolean
-}
+import { ScheduleModel2 } from '../../../../shared/types'
 
 class CreateScheduleUseCase {
   private _repository: ICreateScheduleRepository
@@ -49,9 +34,9 @@ class CreateScheduleUseCase {
       customException('A agenda está desativada')
     }
 
-    let parsedMonthDay: string
+    let parsedMonthDay = ''
 
-    const newSchedules = timeToSchedule.map((scheduleItem: ScheduleModel) => {
+    const newSchedules = timeToSchedule.map((scheduleItem: ScheduleModel2) => {
       parsedMonthDay = `${monthDay}T00:00:00-03:00`
 
       return {
@@ -80,7 +65,7 @@ class CreateScheduleUseCase {
     // Retira do request.body os horários que já existem no banco de dados
     for (let x = 0; x < filteredSchedules.length; x++) {
       const index = newSchedules.findIndex(
-        (val: ScheduleModel) => val.hour === filteredSchedules[x].hour
+        (val: ScheduleModel2) => val.hour === filteredSchedules[x].hour
       )
       if (index >= 0) {
         newSchedules.splice(index, 1)

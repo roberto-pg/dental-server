@@ -1,5 +1,6 @@
 import { ICreateScheduleRepository } from '../domain/repositories/create_schedule_repository'
 import IHttpService from '../../../shared/prisma/http_service'
+import { ScheduleModel2 } from '../../../shared/types'
 
 class CreateScheduleRepositoryImpl implements ICreateScheduleRepository {
   private _prismaServer: IHttpService
@@ -7,22 +8,7 @@ class CreateScheduleRepositoryImpl implements ICreateScheduleRepository {
     this._prismaServer = prismaServer
   }
 
-  async execute(
-    newSchedules: {
-      doctor_id: string
-      doctor_name: string
-      specialty: string
-      month_day: string
-      week_day: string
-      hour: string
-      patient_name?: string
-      cpf?: string
-      plan?: string
-      card?: string
-      scheduled: boolean
-      editable: boolean
-    }[]
-  ): Promise<string> {
+  async execute(newSchedules: ScheduleModel2[]): Promise<string> {
     await this._prismaServer.connectPrisma().schedule.createMany({
       data: newSchedules,
     })

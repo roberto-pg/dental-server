@@ -69,7 +69,7 @@ class CreateAppointmentUseCase {
     try {
       const appointments = await this._repository.execute(
         scheduleId,
-        patientName,
+        patientName ?? '',
         cpf,
         plan,
         card,

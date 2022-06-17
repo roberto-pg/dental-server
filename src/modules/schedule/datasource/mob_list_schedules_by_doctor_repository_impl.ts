@@ -1,5 +1,6 @@
 import { IMobListSchedulesByDoctorRepository } from '../domain/repositories/mob_list_schedules_by_doctor_repository'
 import IHttpService from '../../../shared/prisma/http_service'
+import { ScheduleModel } from '../../../shared/types/schedule_model'
 
 class MobListSchedulesByDoctorRepositoryImpl
   implements IMobListSchedulesByDoctorRepository
@@ -9,26 +10,7 @@ class MobListSchedulesByDoctorRepositoryImpl
     this._prismaServer = prismaServer
   }
 
-  async execute(
-    doctorId: string,
-    currentDay: Date
-  ): Promise<
-    {
-      id: string
-      doctor_id: string
-      doctor_name: string
-      specialty: string
-      month_day: string
-      week_day: string
-      hour: string
-      patient_name?: string
-      cpf?: string
-      plan?: string
-      card?: string
-      scheduled: boolean
-      editable: boolean
-    }[]
-  > {
+  async execute(doctorId: string, currentDay: Date): Promise<ScheduleModel[]> {
     const schedules = await this._prismaServer
       .connectPrisma()
       .schedule.findMany({

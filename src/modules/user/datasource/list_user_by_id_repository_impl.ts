@@ -1,5 +1,6 @@
 import { IListUserByIdRepository } from '../domain/repositories/list_user_by_id_repository'
 import IHttpService from '../../../shared/prisma/http_service'
+import { UserModel } from '../../../shared/types'
 
 class ListUserByIdRepositoryImpl implements IListUserByIdRepository {
   private _prismaServer: IHttpService
@@ -7,16 +8,7 @@ class ListUserByIdRepositoryImpl implements IListUserByIdRepository {
     this._prismaServer = prismaServer
   }
 
-  async execute(id: string): Promise<{
-    name: string
-    email: string
-    cpf: string
-    password?: string
-    card: string
-    plan: string
-    active: boolean
-    admin: boolean
-  }> {
+  async execute(id: string): Promise<UserModel> {
     const user = await this._prismaServer.connectPrisma().user.findUnique({
       where: {
         id,
@@ -26,7 +18,7 @@ class ListUserByIdRepositoryImpl implements IListUserByIdRepository {
         name: true,
         email: true,
         cpf: true,
-        password: false,
+        password: true,
         card: true,
         plan: true,
         active: true,
@@ -34,7 +26,7 @@ class ListUserByIdRepositoryImpl implements IListUserByIdRepository {
       },
     })
 
-    return user
+    return user as UserModel
   }
 }
 

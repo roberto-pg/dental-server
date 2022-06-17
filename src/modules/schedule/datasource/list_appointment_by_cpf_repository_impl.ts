@@ -1,5 +1,6 @@
 import { IListAppointmentByCpfRepository } from '../domain/repositories/list_appointment_by_cpf_repository'
 import IHttpService from '../../../shared/prisma/http_service'
+import { ScheduleModel } from '../../../shared/types/schedule_model'
 
 class ListAppointmentByCpfRepositoryImpl
   implements IListAppointmentByCpfRepository
@@ -9,23 +10,7 @@ class ListAppointmentByCpfRepositoryImpl
     this._prismaServer = prismaServer
   }
 
-  async execute(cfp: string): Promise<
-    {
-      id: string
-      doctor_id: string
-      doctor_name: string
-      specialty: string
-      month_day: string
-      week_day: string
-      hour: string
-      patient_name?: string
-      cpf?: string
-      plan?: string
-      card?: string
-      scheduled: boolean
-      editable: boolean
-    }[]
-  > {
+  async execute(cfp: string): Promise<ScheduleModel[]> {
     const schedules = await this._prismaServer
       .connectPrisma()
       .schedule.findMany({

@@ -8,7 +8,7 @@ class ListSchedulesByScheduledUseCase {
   }
 
   async call(scheduled: string) {
-    let scheduledBool: boolean
+    let scheduledBool = false
 
     if (scheduled === 'true') {
       scheduledBool = true

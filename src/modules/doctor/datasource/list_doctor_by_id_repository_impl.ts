@@ -1,5 +1,6 @@
 import { IListDoctorByIdRepository } from '../domain/repositories/list_doctor_by_id_repository'
 import IHttpService from '../../../shared/prisma/http_service'
+import { DoctorModel } from '../../../shared/types/doctor_model'
 
 class ListDoctorByIdRepositoryImpl implements IListDoctorByIdRepository {
   private _prismaServer: IHttpService
@@ -7,14 +8,7 @@ class ListDoctorByIdRepositoryImpl implements IListDoctorByIdRepository {
     this._prismaServer = prismaServer
   }
 
-  async execute(id: string): Promise<{
-    id: string
-    name: string
-    specialty: string
-    image_url: string
-    bio: string
-    active: boolean
-  }> {
+  async execute(id: string): Promise<DoctorModel | null> {
     const doctor = await this._prismaServer.connectPrisma().doctor.findUnique({
       where: {
         id: id,

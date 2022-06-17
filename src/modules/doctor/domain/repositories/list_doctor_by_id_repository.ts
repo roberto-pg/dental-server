@@ -1,12 +1,5 @@
-type DoctorModel = {
-  id: string
-  name: string
-  specialty: string
-  image_url: string
-  bio: string
-  active: boolean
-}
+import { DoctorModel } from '../../../../shared/types'
 
 export interface IListDoctorByIdRepository {
-  execute(id: string): Promise<DoctorModel>
+  execute(id: string): Promise<DoctorModel | null>
 }

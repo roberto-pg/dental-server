@@ -1,10 +1,4 @@
-type DoctorModel = {
-  id: string
-  name: string
-  specialty: string
-  image_url: string
-  bio: string
-}
+import { DoctorModel } from '../../../../shared/types'
 
 export interface ICreateDoctorRepository {
   execute(

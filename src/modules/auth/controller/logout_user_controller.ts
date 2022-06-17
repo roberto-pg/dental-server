@@ -14,7 +14,7 @@ class LogoutUserController {
     // const [, token] = request.headers.authorization.split(' ')
 
     try {
-      const result = await this._useCase.call(String(id), token)
+      const result = await this._useCase.call(String(id), token ?? '')
       return response.json(result)
     } catch (error) {
       return response.status(400).json({ Error: error.message })

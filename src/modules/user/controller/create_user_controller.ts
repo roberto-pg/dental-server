@@ -24,6 +24,7 @@ export default class CreateUserController {
         admin
       )
       result.password = undefined
+
       return response.json(result)
     } catch (error) {
       return response.status(400).json({ Error: error.message })

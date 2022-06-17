@@ -1,22 +1,7 @@
 import { IListSchedulesByDoctorRepository } from '../repositories/list_schedules_by_doctor_repository'
 import { customException } from '../../../../shared/errors/custom_exception'
 import { Validate } from '../../../../shared/utils/validate'
-
-type ScheduleModel = {
-  id?: string
-  doctor_id: string
-  doctor_name: string
-  specialty: string
-  month_day: string
-  week_day: string
-  hour: string
-  patient_name?: string
-  cpf?: string
-  plan?: string
-  scheduled: boolean
-  card?: string
-  editable: boolean
-}
+import { FilteredScheduleModel, ScheduleModel } from '../../../../shared/types'
 
 class ListSchedulesByDoctorUseCase {
   private _repository: IListSchedulesByDoctorRepository
@@ -39,12 +24,12 @@ class ListSchedulesByDoctorUseCase {
     try {
       const currentDay = new Date()
       currentDay.setHours(0, 0, 0, 0)
-      const filteredSchedules: any[] = []
+      const filteredSchedules: FilteredScheduleModel[] = []
 
-      const schedules = await this._repository.execute(doctorId, currentDay)
+      const schedules = await this._repository.execute(doctorId)
 
       schedules.map((doctorSchedule: ScheduleModel) => {
-        const formattedDate = doctorSchedule.month_day.substring(0, 7)
+        const formattedDate = doctorSchedule.month_day?.substring(0, 7)
 
         if (formattedDate === yearAndMonth) {
           filteredSchedules.push({

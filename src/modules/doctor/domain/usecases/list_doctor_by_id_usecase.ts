@@ -24,12 +24,12 @@ class ListDoctorByIdUseCase {
       const doctor = await this._repository.execute(id)
 
       const serializedDoctor = {
-        id: doctor.id,
-        name: doctor.name,
-        specialty: doctor.specialty,
-        imageUrl: doctor.image_url,
-        bio: doctor.bio,
-        active: doctor.active,
+        id: doctor?.id,
+        name: doctor?.name,
+        specialty: doctor?.specialty,
+        imageUrl: doctor?.image_url,
+        bio: doctor?.bio,
+        active: doctor?.active,
       }
 
       return serializedDoctor

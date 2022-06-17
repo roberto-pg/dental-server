@@ -1,5 +1,6 @@
 import { IListSchedulesByScheduledRepository } from '../domain/repositories/list_schedules_by_scheduled_repository'
 import IHttpService from '../../../shared/prisma/http_service'
+import { ScheduleModel } from '../../../shared/types/schedule_model'
 
 class ListSchedulesByScheduledRepositoryImpl
   implements IListSchedulesByScheduledRepository
@@ -9,23 +10,7 @@ class ListSchedulesByScheduledRepositoryImpl
     this._prismaServer = prismaServer
   }
 
-  async execute(scheduledBool: boolean): Promise<
-    {
-      id: string
-      doctor_id: string
-      doctor_name: string
-      specialty: string
-      month_day: string
-      week_day: string
-      hour: string
-      patient_name?: string
-      cpf?: string
-      plan?: string
-      card?: string
-      scheduled: boolean
-      editable: boolean
-    }[]
-  > {
+  async execute(scheduledBool: boolean): Promise<ScheduleModel[]> {
     const schedules = await this._prismaServer
       .connectPrisma()
       .schedule.findMany({

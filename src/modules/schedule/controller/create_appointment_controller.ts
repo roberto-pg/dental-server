@@ -1,14 +1,6 @@
 import { Request, Response } from 'express'
+import { AppointmentModel } from '../../../shared/types'
 import { CreateAppointmentUseCase } from '../domain/usecases/create_appointment_usecase'
-
-type AppointmentType = {
-  scheduleId: string
-  patientName: string
-  cpf: string
-  plan: string
-  card: string
-  scheduled: boolean
-}
 
 class CreateAppointmentController {
   private _useCase: CreateAppointmentUseCase
@@ -18,7 +10,7 @@ class CreateAppointmentController {
   }
 
   async handle(request: Request, response: Response) {
-    const { scheduleId, cpf, plan, card, scheduled } = <AppointmentType>(
+    const { scheduleId, cpf, plan, card, scheduled } = <AppointmentModel>(
       request.body
     )
 

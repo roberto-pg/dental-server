@@ -14,7 +14,7 @@ class LogoutUserRepositoryImpl implements ILogoutUserRepository {
       },
     })
 
-    return user.id
+    return user?.id ?? ''
   }
 }
 
