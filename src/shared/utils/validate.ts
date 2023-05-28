@@ -25,8 +25,8 @@ class Validate {
   async verifyUserEmail(email: string) {
     const user = await this._prismaServer.connectPrisma().user.findUnique({
       where: {
-        email: email,
-      },
+        email: email
+      }
     })
     return user
   }
@@ -34,8 +34,8 @@ class Validate {
   async verifyUserCpf(cpf: string) {
     const user = await this._prismaServer.connectPrisma().user.findUnique({
       where: {
-        cpf: cpf,
-      },
+        cpf: cpf
+      }
     })
     return user
   }
@@ -43,8 +43,8 @@ class Validate {
   async verifyUserId(id: string) {
     const user = await this._prismaServer.connectPrisma().user.findUnique({
       where: {
-        id: id,
-      },
+        id: id
+      }
     })
     return user
   }
@@ -52,32 +52,28 @@ class Validate {
   async verifyDoctorId(id: string) {
     const doctor = await this._prismaServer.connectPrisma().doctor.findUnique({
       where: {
-        id: id,
-      },
+        id: id
+      }
     })
     return doctor
   }
 
   async verifyScheduleId(id: string) {
-    const schedule = await this._prismaServer
-      .connectPrisma()
-      .schedule.findUnique({
-        where: {
-          id: id,
-        },
-      })
+    const schedule = await this._prismaServer.connectPrisma().schedule.findUnique({
+      where: {
+        id: id
+      }
+    })
     return schedule
   }
 
   async verifyAppointmentId(id: string) {
-    const appointment = await this._prismaServer
-      .connectPrisma()
-      .schedule.findFirst({
-        where: {
-          id: id,
-          scheduled: false,
-        },
-      })
+    const appointment = await this._prismaServer.connectPrisma().schedule.findFirst({
+      where: {
+        id: id,
+        scheduled: false
+      }
+    })
 
     return appointment
   }
@@ -86,8 +82,8 @@ class Validate {
     const user = await this._prismaServer.connectPrisma().user.findFirst({
       where: {
         cpf,
-        plan,
-      },
+        plan
+      }
     })
 
     return user
@@ -97,8 +93,8 @@ class Validate {
     const user = await this._prismaServer.connectPrisma().user.findFirst({
       where: {
         cpf,
-        card,
-      },
+        card
+      }
     })
 
     return user
@@ -108,8 +104,8 @@ class Validate {
     const user = await this._prismaServer.connectPrisma().user.findFirst({
       where: {
         cpf,
-        active: true,
-      },
+        active: true
+      }
     })
 
     return user
@@ -119,8 +115,8 @@ class Validate {
     const doctor = await this._prismaServer.connectPrisma().doctor.findFirst({
       where: {
         id,
-        active: true,
-      },
+        active: true
+      }
     })
 
     return doctor
@@ -129,33 +125,27 @@ class Validate {
   async getPatientName(cpf: string) {
     const user = await this._prismaServer.connectPrisma().user.findUnique({
       where: {
-        cpf,
-      },
+        cpf
+      }
     })
 
     return user?.name
   }
 
-  async schedulesAlreadyExists(
-    newSchedules: ScheduleModel[],
-    parsedMonthDay: string,
-    doctor_id: string
-  ) {
+  async schedulesAlreadyExists(newSchedules: ScheduleModel[], parsedMonthDay: string, doctor_id: string) {
     const scheduleResponse = []
     for (let i = 0; i < newSchedules.length; i++) {
-      const result = await this._prismaServer
-        .connectPrisma()
-        .schedule.findMany({
-          where: {
-            doctor_id: doctor_id,
-            month_day: parsedMonthDay,
-            hour: newSchedules[i].hour,
-          },
-          select: {
-            month_day: true,
-            hour: true,
-          },
-        })
+      const result = await this._prismaServer.connectPrisma().schedule.findMany({
+        where: {
+          doctor_id: doctor_id,
+          month_day: parsedMonthDay,
+          hour: newSchedules[i].hour
+        },
+        select: {
+          month_day: true,
+          hour: true
+        }
+      })
       scheduleResponse.push(...result)
     }
 

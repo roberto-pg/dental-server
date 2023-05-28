@@ -5,10 +5,7 @@ import { customException } from '../../../../shared/errors/custom_exception'
 class RemoveAppointmentUseCase {
   private _repository: IRemoveAppointmentRepository
   private _validate: Validate
-  constructor(
-    readonly repository: IRemoveAppointmentRepository,
-    readonly validate: Validate
-  ) {
+  constructor(readonly repository: IRemoveAppointmentRepository, readonly validate: Validate) {
     this._repository = repository
     this._validate = validate
   }
@@ -24,23 +21,14 @@ class RemoveAppointmentUseCase {
   ) {
     if (!id) throw customException('Informe o ID do agendamento')
 
-    if (typeof id !== 'string')
-      throw customException('O Id do agendamento deve ser uma string')
+    if (typeof id !== 'string') throw customException('O Id do agendamento deve ser uma string')
 
     const scheduleId = await this._validate.verifyScheduleId(id)
 
     if (!scheduleId) throw customException('Agendamento não encontrado')
 
     try {
-      const appointmentId = await this._repository.execute(
-        id,
-        patientName,
-        cpf,
-        plan,
-        card,
-        scheduled,
-        editable
-      )
+      const appointmentId = await this._repository.execute(id, patientName, cpf, plan, card, scheduled, editable)
 
       return appointmentId
     } catch (error) {

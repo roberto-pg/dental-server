@@ -10,11 +10,11 @@ class ChangeEmailRepositoryImpl implements IChangeEmailRepository {
   async execute(id: string, email: string): Promise<string> {
     const user = await this._prismaServer.connectPrisma().user.update({
       where: {
-        id,
+        id
       },
       data: {
-        email: email,
-      },
+        email: email
+      }
     })
 
     return user.id

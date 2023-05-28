@@ -10,7 +10,7 @@ class CreateScheduleRepositoryImpl implements ICreateScheduleRepository {
 
   async execute(newSchedules: ScheduleModel2[]): Promise<string> {
     await this._prismaServer.connectPrisma().schedule.createMany({
-      data: newSchedules,
+      data: newSchedules
     })
 
     return 'Agendamento criado com sucesso'

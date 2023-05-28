@@ -8,19 +8,14 @@ class CreateDoctorRepositoryImpl implements ICreateDoctorRepository {
     this._prismaServer = prismaServer
   }
 
-  async execute(
-    name: string,
-    specialty: string,
-    image_url: string,
-    bio: string
-  ): Promise<DoctorModel> {
+  async execute(name: string, specialty: string, image_url: string, bio: string): Promise<DoctorModel> {
     const doctor = await this._prismaServer.connectPrisma().doctor.create({
       data: {
         name,
         specialty,
         image_url,
-        bio,
-      },
+        bio
+      }
     })
 
     return doctor

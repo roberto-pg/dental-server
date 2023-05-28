@@ -9,20 +9,10 @@ export default class CreateUserController {
   }
 
   async handle(request: Request, response: Response) {
-    const { name, email, cpf, password, card, plan, active, admin } =
-      request.body
+    const { name, email, cpf, password, card, plan, active, admin } = request.body
 
     try {
-      const result = await this._useCase.call(
-        name,
-        email,
-        cpf,
-        password,
-        card,
-        plan,
-        active,
-        admin
-      )
+      const result = await this._useCase.call(name, email, cpf, password, card, plan, active, admin)
       result.password = undefined
 
       return response.json(result)

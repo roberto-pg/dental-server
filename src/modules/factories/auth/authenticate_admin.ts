@@ -10,11 +10,7 @@ export const authenticateAdminController = () => {
   const validate = new Validate(prisma)
   const dataChecker = new DataChecker()
 
-  const useCase = new AuthenticateAdminUseCase(
-    repository,
-    validate,
-    dataChecker
-  )
+  const useCase = new AuthenticateAdminUseCase(repository, validate, dataChecker)
 
   return new AuthenticateAdminController(useCase)
 }

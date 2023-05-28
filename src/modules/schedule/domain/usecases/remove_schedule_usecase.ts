@@ -5,10 +5,7 @@ import { customException } from '../../../../shared/errors/custom_exception'
 class RemoveScheduleUseCase {
   private _repository: IRemoveScheduleRepository
   private _validate: Validate
-  constructor(
-    readonly repository: IRemoveScheduleRepository,
-    readonly validate: Validate
-  ) {
+  constructor(readonly repository: IRemoveScheduleRepository, readonly validate: Validate) {
     this._repository = repository
     this._validate = validate
   }

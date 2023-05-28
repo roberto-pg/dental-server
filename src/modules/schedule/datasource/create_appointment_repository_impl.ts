@@ -15,21 +15,19 @@ class CreateAppointmentRepositoryImpl implements ICreateAppointmentRepository {
     card: string,
     scheduled: boolean
   ): Promise<string> {
-    const appointment = await this._prismaServer
-      .connectPrisma()
-      .schedule.update({
-        where: {
-          id: scheduleId,
-        },
-        data: {
-          patient_name: patientName,
-          cpf: cpf,
-          plan: plan,
-          card: card,
-          scheduled: scheduled,
-          editable: false,
-        },
-      })
+    const appointment = await this._prismaServer.connectPrisma().schedule.update({
+      where: {
+        id: scheduleId
+      },
+      data: {
+        patient_name: patientName,
+        cpf: cpf,
+        plan: plan,
+        card: card,
+        scheduled: scheduled,
+        editable: false
+      }
+    })
 
     return appointment.id
   }

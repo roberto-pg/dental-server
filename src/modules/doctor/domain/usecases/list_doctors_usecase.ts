@@ -18,7 +18,7 @@ class ListDoctorsUseCase {
           specialty: doctor.specialty,
           imageUrl: doctor.image_url,
           bio: doctor.bio,
-          active: doctor.active,
+          active: doctor.active
         }
       })
 

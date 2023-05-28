@@ -1,18 +1,12 @@
 import { ILogoutUserRepository } from '../repositories/logout_user_repository'
 import { Validate } from '../../../../shared/utils/validate'
 import { customException } from '../../../../shared/errors/custom_exception'
-import {
-  setBlackList,
-  deleteUserCache,
-} from '../../../../shared/redis/redis_service'
+import { setBlackList, deleteUserCache } from '../../../../shared/redis/redis_service'
 
 class LogoutUserUseCase {
   private _repository: ILogoutUserRepository
   private _validate: Validate
-  constructor(
-    readonly repository: ILogoutUserRepository,
-    readonly validate: Validate
-  ) {
+  constructor(readonly repository: ILogoutUserRepository, readonly validate: Validate) {
     this._repository = repository
     this._validate = validate
   }

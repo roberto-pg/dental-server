@@ -8,16 +8,14 @@ class ChangeEditableRepositoryImpl implements IChangeEditableRepository {
   }
 
   async execute(id: string, editable: boolean): Promise<string> {
-    const appointment = await this._prismaServer
-      .connectPrisma()
-      .schedule.update({
-        where: {
-          id: id,
-        },
-        data: {
-          editable: editable,
-        },
-      })
+    const appointment = await this._prismaServer.connectPrisma().schedule.update({
+      where: {
+        id: id
+      },
+      data: {
+        editable: editable
+      }
+    })
 
     return appointment.id
   }

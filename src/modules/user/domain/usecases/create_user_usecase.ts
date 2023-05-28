@@ -64,8 +64,7 @@ class CreateUserUseCase {
       throw customException('Informe o nome do convênio')
     }
 
-    if (plan === 'Particular' && card !== '')
-      customException('Paciente particular não usa código de beneficiário')
+    if (plan === 'Particular' && card !== '') customException('Paciente particular não usa código de beneficiário')
 
     if (plan !== 'Particular' && card === '') {
       throw customException('Informe o código do beneficiário')
@@ -73,16 +72,7 @@ class CreateUserUseCase {
 
     try {
       const hashPassword = await bcrypt.hash(password, 10)
-      const user = await this._repository.execute(
-        name,
-        email,
-        cpf,
-        hashPassword,
-        card,
-        plan,
-        active,
-        admin
-      )
+      const user = await this._repository.execute(name, email, cpf, hashPassword, card, plan, active, admin)
       return user
     } catch (error) {
       throw customException('Erro ao criar usuário')

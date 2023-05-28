@@ -5,10 +5,7 @@ import { IMobListSchedulesByDoctorRepository } from '../repositories/mob_list_sc
 class MobListSchedulesByDoctorUseCase {
   private _repository: IMobListSchedulesByDoctorRepository
   private _validate: Validate
-  constructor(
-    readonly repository: IMobListSchedulesByDoctorRepository,
-    readonly validate: Validate
-  ) {
+  constructor(readonly repository: IMobListSchedulesByDoctorRepository, readonly validate: Validate) {
     this._repository = repository
     this._validate = validate
   }
@@ -40,7 +37,7 @@ class MobListSchedulesByDoctorUseCase {
           plan: schedule.plan,
           card: schedule.card,
           scheduled: schedule.scheduled,
-          editable: schedule.editable,
+          editable: schedule.editable
         }
       })
 

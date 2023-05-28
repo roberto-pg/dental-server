@@ -5,10 +5,7 @@ import { DataChecker } from '../../../../shared/utils/data_checker'
 class ListAppointmentByCpfUseCase {
   private _repository: IListAppointmentByCpfRepository
   private _dataChecker: DataChecker
-  constructor(
-    readonly repository: IListAppointmentByCpfRepository,
-    readonly dataChecker: DataChecker
-  ) {
+  constructor(readonly repository: IListAppointmentByCpfRepository, readonly dataChecker: DataChecker) {
     this._repository = repository
     this._dataChecker = dataChecker
   }
@@ -41,7 +38,7 @@ class ListAppointmentByCpfUseCase {
           plan: appointment.plan,
           card: appointment.card,
           scheduled: appointment.scheduled,
-          editable: appointment.editable,
+          editable: appointment.editable
         }
       })
 

@@ -10,8 +10,8 @@ class RemoveUserRepositoryImpl implements IRemoveUserRepository {
   async execute(id: string): Promise<string> {
     const user = await this._prismaServer.connectPrisma().user.delete({
       where: {
-        id,
-      },
+        id
+      }
     })
 
     return user.id

@@ -6,10 +6,7 @@ import { customException } from '../../../../shared/errors/custom_exception'
 class ChangePasswordUseCase {
   private _repository: IChangePasswordRepository
   private _validate: Validate
-  constructor(
-    readonly repository: IChangePasswordRepository,
-    readonly validate: Validate
-  ) {
+  constructor(readonly repository: IChangePasswordRepository, readonly validate: Validate) {
     this._repository = repository
     this._validate = validate
   }

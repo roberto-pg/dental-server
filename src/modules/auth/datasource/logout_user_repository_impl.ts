@@ -10,8 +10,8 @@ class LogoutUserRepositoryImpl implements ILogoutUserRepository {
   async execute(id: string): Promise<string> {
     const user = await this._prismaServer.connectPrisma().user.findUnique({
       where: {
-        id,
-      },
+        id
+      }
     })
 
     return user?.id ?? ''

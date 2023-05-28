@@ -21,19 +21,14 @@ class CreateDoctorUseCase {
     }
 
     try {
-      const doctor = await this._repository.execute(
-        name,
-        specialty,
-        image_url,
-        bio
-      )
+      const doctor = await this._repository.execute(name, specialty, image_url, bio)
 
       const serializedDoctor = {
         id: doctor.id,
         name: doctor.name,
         specialty: doctor.specialty,
         imageUrl: doctor.image_url,
-        bio: doctor.bio,
+        bio: doctor.bio
       }
 
       return serializedDoctor

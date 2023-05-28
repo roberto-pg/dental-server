@@ -18,7 +18,7 @@ class RemoveAppointmentRepositoryImpl implements IRemoveAppointmentRepository {
   ): Promise<string> {
     const schedule = await this._prismaServer.connectPrisma().schedule.update({
       where: {
-        id: id,
+        id: id
       },
       data: {
         patient_name: patientName,
@@ -26,8 +26,8 @@ class RemoveAppointmentRepositoryImpl implements IRemoveAppointmentRepository {
         plan: plan,
         card: card,
         scheduled: scheduled,
-        editable: editable,
-      },
+        editable: editable
+      }
     })
 
     return schedule.id

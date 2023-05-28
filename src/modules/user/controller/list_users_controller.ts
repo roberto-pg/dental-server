@@ -22,7 +22,7 @@ class ListUsersController {
           card: user.card,
           plan: user.plan,
           active: user.active,
-          admin: user.admin,
+          admin: user.admin
         }
       })
 

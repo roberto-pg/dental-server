@@ -38,7 +38,7 @@ class AuthenticateUserUseCase {
     }
 
     const token = sign({ sub: user?.id }, process.env.JWT_SECRET ?? '', {
-      expiresIn: parseInt(process.env.LOGIN_EXPIRATION_TIME ?? ''),
+      expiresIn: parseInt(process.env.LOGIN_EXPIRATION_TIME ?? '')
     })
 
     setUserCache(user?.id ?? '')
@@ -49,7 +49,7 @@ class AuthenticateUserUseCase {
       cpf: user?.cpf,
       plan: user?.plan,
       card: user?.card,
-      token: token,
+      token: token
     }
 
     return serializedUser

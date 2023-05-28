@@ -2,9 +2,7 @@ import { IListDoctorsBySpecialtyRepository } from '../domain/repositories/list_d
 import IHttpService from '../../../shared/prisma/http_service'
 import { DoctorModel } from '../../../shared/types/doctor_model'
 
-class ListDoctorsBySpecialtyRepositoryImpl
-  implements IListDoctorsBySpecialtyRepository
-{
+class ListDoctorsBySpecialtyRepositoryImpl implements IListDoctorsBySpecialtyRepository {
   private _prismaServer: IHttpService
   constructor(readonly prismaServer: IHttpService) {
     this._prismaServer = prismaServer
@@ -13,8 +11,8 @@ class ListDoctorsBySpecialtyRepositoryImpl
   async execute(specialty: string): Promise<DoctorModel[]> {
     const doctors = await this._prismaServer.connectPrisma().doctor.findMany({
       where: {
-        specialty: specialty,
-      },
+        specialty: specialty
+      }
     })
 
     return doctors

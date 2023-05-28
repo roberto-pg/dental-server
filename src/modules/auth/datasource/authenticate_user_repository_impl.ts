@@ -2,9 +2,7 @@ import { IAuthenticateUserRepository } from '../domain/repositories/authenticate
 import IHttpService from '../../../shared/prisma/http_service'
 import { AuthenticatedModel } from '../../../shared/types/authenticate_model'
 
-export class AuthenticateUserRepositoryImpl
-  implements IAuthenticateUserRepository
-{
+export class AuthenticateUserRepositoryImpl implements IAuthenticateUserRepository {
   private _prismaServer: IHttpService
   constructor(readonly prismaServer: IHttpService) {
     this._prismaServer = prismaServer
@@ -13,8 +11,8 @@ export class AuthenticateUserRepositoryImpl
   async execute(cpf: string): Promise<AuthenticatedModel | null> {
     const user = await this._prismaServer.connectPrisma().user.findUnique({
       where: {
-        cpf: cpf,
-      },
+        cpf: cpf
+      }
     })
 
     return user

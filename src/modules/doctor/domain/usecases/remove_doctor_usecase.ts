@@ -7,10 +7,7 @@ import 'dotenv/config'
 class RemoveDoctorUseCase {
   private _repository: IRemoveDoctorRepository
   private _validate: Validate
-  constructor(
-    readonly repository: IRemoveDoctorRepository,
-    readonly validate: Validate
-  ) {
+  constructor(readonly repository: IRemoveDoctorRepository, readonly validate: Validate) {
     this._repository = repository
     this._validate = validate
   }

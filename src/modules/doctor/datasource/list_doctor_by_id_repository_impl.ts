@@ -11,8 +11,8 @@ class ListDoctorByIdRepositoryImpl implements IListDoctorByIdRepository {
   async execute(id: string): Promise<DoctorModel | null> {
     const doctor = await this._prismaServer.connectPrisma().doctor.findUnique({
       where: {
-        id: id,
-      },
+        id: id
+      }
     })
 
     return doctor

@@ -11,8 +11,8 @@ class ListDoctorsRepositoryImpl implements IListDoctorsRepository {
   async execute(): Promise<DoctorModel[]> {
     const doctors = await this._prismaServer.connectPrisma().doctor.findMany({
       orderBy: {
-        active: 'desc',
-      },
+        active: 'desc'
+      }
     })
 
     return doctors

@@ -5,10 +5,7 @@ import { customException } from '../../../../shared/errors/custom_exception'
 class ChangePlanAndCardUseCase {
   private _repository: IChangePlanAndCardRepository
   private _validate: Validate
-  constructor(
-    readonly repository: IChangePlanAndCardRepository,
-    readonly validate: Validate
-  ) {
+  constructor(readonly repository: IChangePlanAndCardRepository, readonly validate: Validate) {
     this._repository = repository
     this._validate = validate
   }

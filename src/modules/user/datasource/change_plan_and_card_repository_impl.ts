@@ -10,12 +10,12 @@ class ChangePlanAndCardRepositoryImpl implements IChangePlanAndCardRepository {
   async execute(id: string, plan: string, card: string): Promise<string> {
     const user = await this._prismaServer.connectPrisma().user.update({
       where: {
-        id,
+        id
       },
       data: {
         plan: plan,
-        card: card,
-      },
+        card: card
+      }
     })
 
     return user.id

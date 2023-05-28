@@ -5,10 +5,7 @@ import { customException } from '../../../../shared/errors/custom_exception'
 class RemoveUserUseCase {
   private _repository: IRemoveUserRepository
   private _validate: Validate
-  constructor(
-    readonly repository: IRemoveUserRepository,
-    readonly validate: Validate
-  ) {
+  constructor(readonly repository: IRemoveUserRepository, readonly validate: Validate) {
     this._repository = repository
     this._validate = validate
   }

@@ -6,10 +6,7 @@ import { ScheduleModel2 } from '../../../../shared/types'
 class CreateScheduleUseCase {
   private _repository: ICreateScheduleRepository
   private _validate: Validate
-  constructor(
-    readonly repository: ICreateScheduleRepository,
-    readonly validate: Validate
-  ) {
+  constructor(readonly repository: ICreateScheduleRepository, readonly validate: Validate) {
     this._repository = repository
     this._validate = validate
   }
@@ -51,22 +48,16 @@ class CreateScheduleUseCase {
         plan: plan,
         card: card,
         scheduled: scheduled,
-        editable: editable,
+        editable: editable
       }
     })
 
     // Filtra o request.body para buscar horários redundantes (que já existem)
-    const filteredSchedules = await this._validate.schedulesAlreadyExists(
-      newSchedules,
-      parsedMonthDay,
-      doctorId
-    )
+    const filteredSchedules = await this._validate.schedulesAlreadyExists(newSchedules, parsedMonthDay, doctorId)
 
     // Retira do request.body os horários que já existem no banco de dados
     for (let x = 0; x < filteredSchedules.length; x++) {
-      const index = newSchedules.findIndex(
-        (val: ScheduleModel2) => val.hour === filteredSchedules[x].hour
-      )
+      const index = newSchedules.findIndex((val: ScheduleModel2) => val.hour === filteredSchedules[x].hour)
       if (index >= 0) {
         newSchedules.splice(index, 1)
       }

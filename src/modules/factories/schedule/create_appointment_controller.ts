@@ -10,11 +10,7 @@ export const createAppointmentController = () => {
   const repository = new CreateAppointmentRepositoryImpl(prisma)
   const validate = new Validate(prisma)
   const dataChecker = new DataChecker()
-  const useCase = new CreateAppointmentUseCase(
-    repository,
-    validate,
-    dataChecker
-  )
+  const useCase = new CreateAppointmentUseCase(repository, validate, dataChecker)
 
   return new CreateAppointmentController(useCase)
 }

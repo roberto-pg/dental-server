@@ -5,10 +5,7 @@ import { customException } from '../../../../shared/errors/custom_exception'
 class ListUserByIdUseCase {
   private _repository: IListUserByIdRepository
   private _validate: Validate
-  constructor(
-    readonly repository: IListUserByIdRepository,
-    readonly validate: Validate
-  ) {
+  constructor(readonly repository: IListUserByIdRepository, readonly validate: Validate) {
     this._repository = repository
     this._validate = validate
   }

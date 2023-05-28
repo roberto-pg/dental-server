@@ -10,18 +10,10 @@ class CreateAppointmentController {
   }
 
   async handle(request: Request, response: Response) {
-    const { scheduleId, cpf, plan, card, scheduled } = <AppointmentModel>(
-      request.body
-    )
+    const { scheduleId, cpf, plan, card, scheduled } = <AppointmentModel>request.body
 
     try {
-      const result = await this._useCase.call(
-        scheduleId,
-        cpf,
-        plan,
-        card,
-        scheduled
-      )
+      const result = await this._useCase.call(scheduleId, cpf, plan, card, scheduled)
 
       return response.json(result)
     } catch (error) {

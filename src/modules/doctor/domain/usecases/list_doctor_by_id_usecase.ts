@@ -5,10 +5,7 @@ import { Validate } from '../../../../shared/utils/validate'
 class ListDoctorByIdUseCase {
   private _repository: IListDoctorByIdRepository
   private _validate: Validate
-  constructor(
-    readonly repository: IListDoctorByIdRepository,
-    readonly validate: Validate
-  ) {
+  constructor(readonly repository: IListDoctorByIdRepository, readonly validate: Validate) {
     this._repository = repository
     this._validate = validate
   }
@@ -29,7 +26,7 @@ class ListDoctorByIdUseCase {
         specialty: doctor?.specialty,
         imageUrl: doctor?.image_url,
         bio: doctor?.bio,
-        active: doctor?.active,
+        active: doctor?.active
       }
 
       return serializedDoctor

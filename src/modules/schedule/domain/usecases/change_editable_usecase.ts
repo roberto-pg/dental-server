@@ -5,10 +5,7 @@ import { customException } from '../../../../shared/errors/custom_exception'
 class ChangeEditableUseCase {
   private _repository: IChangeEditableRepository
   private _validate: Validate
-  constructor(
-    readonly repository: IChangeEditableRepository,
-    readonly validate: Validate
-  ) {
+  constructor(readonly repository: IChangeEditableRepository, readonly validate: Validate) {
     this._repository = repository
     this._validate = validate
   }
@@ -16,8 +13,7 @@ class ChangeEditableUseCase {
   async call(id: string, editable: boolean) {
     if (!id) throw customException('Informe o ID do agendamento')
 
-    if (typeof id !== 'string')
-      throw customException('O Id do agendamento deve ser uma string')
+    if (typeof id !== 'string') throw customException('O Id do agendamento deve ser uma string')
 
     const scheduleId = await this._validate.verifyScheduleId(id)
 

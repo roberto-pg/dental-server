@@ -9,19 +9,10 @@ class RemoveAppointmentController {
   }
 
   async handle(request: Request, response: Response) {
-    const { id, patientName, cpf, plan, card, scheduled, editable } =
-      request.body
+    const { id, patientName, cpf, plan, card, scheduled, editable } = request.body
 
     try {
-      const result = await this._useCase.call(
-        id,
-        patientName,
-        cpf,
-        plan,
-        card,
-        scheduled,
-        editable
-      )
+      const result = await this._useCase.call(id, patientName, cpf, plan, card, scheduled, editable)
 
       return response.json(result)
     } catch (error) {

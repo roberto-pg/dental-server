@@ -17,13 +17,7 @@ class CreateAppointmentUseCase {
     this._dataChecker = dataChecker
   }
 
-  async call(
-    scheduleId: string,
-    cpf: string,
-    plan: string,
-    card: string,
-    scheduled: boolean
-  ) {
+  async call(scheduleId: string, cpf: string, plan: string, card: string, scheduled: boolean) {
     if (!scheduleId) throw customException('Informe o ID do agendamento')
 
     const appointmentId = await this._validate.verifyAppointmentId(scheduleId)
@@ -42,11 +36,9 @@ class CreateAppointmentUseCase {
 
     if (!plan) throw customException('Informe o convênio do beneficiário')
 
-    if (plan === 'Particular' && card !== '')
-      customException('Paciente particular não usa código de beneficiário')
+    if (plan === 'Particular' && card !== '') customException('Paciente particular não usa código de beneficiário')
 
-    if (plan !== 'Particular' && !card)
-      throw customException('Informe o código do beneficiário')
+    if (plan !== 'Particular' && !card) throw customException('Informe o código do beneficiário')
 
     const validPlain = await this._validate.verifyPlain(cpf, plan)
 
@@ -54,8 +46,7 @@ class CreateAppointmentUseCase {
 
     const validCard = await this._validate.verifyCard(cpf, card)
 
-    if (!validCard)
-      throw customException('Número de beneficiário não encontrado')
+    if (!validCard) throw customException('Número de beneficiário não encontrado')
 
     const userActive = await this._validate.userIsActive(cpf)
 
@@ -67,14 +58,7 @@ class CreateAppointmentUseCase {
     const patientName = await this._validate.getPatientName(cpf)
 
     try {
-      const appointments = await this._repository.execute(
-        scheduleId,
-        patientName ?? '',
-        cpf,
-        plan,
-        card,
-        scheduled
-      )
+      const appointments = await this._repository.execute(scheduleId, patientName ?? '', cpf, plan, card, scheduled)
 
       return appointments
     } catch (error) {

@@ -6,10 +6,7 @@ import { FilteredScheduleModel, ScheduleModel } from '../../../../shared/types'
 class ListSchedulesByDoctorUseCase {
   private _repository: IListSchedulesByDoctorRepository
   private _validate: Validate
-  constructor(
-    readonly repository: IListSchedulesByDoctorRepository,
-    readonly validate: Validate
-  ) {
+  constructor(readonly repository: IListSchedulesByDoctorRepository, readonly validate: Validate) {
     this._repository = repository
     this._validate = validate
   }
@@ -45,7 +42,7 @@ class ListSchedulesByDoctorUseCase {
             plan: doctorSchedule.plan,
             card: doctorSchedule.card,
             scheduled: doctorSchedule.scheduled,
-            editable: doctorSchedule.editable,
+            editable: doctorSchedule.editable
           })
         }
         return filteredSchedules
