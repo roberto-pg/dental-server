@@ -56,7 +56,7 @@ router.patch('/user-plan-and-card', protectedRoute, changePlanAndCardController(
 router.patch('/user-password', protectedRoute, changePasswordController().handle)
 
 // Doctor routes
-router.post('/doctors', multer(multerConfig).single('imageUrl'), protectedRoute, createDoctorController().handle)
+router.post('/doctors', protectedRoute, multer(multerConfig).single('imageUrl'), createDoctorController().handle)
 router.get('/doctors', protectedRoute, listDoctorsController().handle)
 router.get('/doctors-specialty/:specialty', protectedRoute, listDoctorsBySpecialtyController().handle)
 router.get('/doctor-id/:id', protectedRoute, listDoctorByIdController().handle)
