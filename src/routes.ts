@@ -52,7 +52,7 @@ router.delete('/delete-user/:id', protectedRoute, removeUserController().handle)
 router.patch('/user-name', protectedRoute, changeNameController().handle)
 router.patch('/user-email', protectedRoute, changeEmailController().handle)
 router.patch('/user-active', protectedRoute, changeStatusController().handle)
-router.patch('/user-plain-and-card', protectedRoute, changePlanAndCardController().handle)
+router.patch('/user-plan-and-card', protectedRoute, changePlanAndCardController().handle)
 router.patch('/user-password', protectedRoute, changePasswordController().handle)
 
 // Doctor routes
