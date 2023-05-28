@@ -84,6 +84,10 @@ cd ~/dental
 <h3>Run the command at the root of the project:</h3>
 
 ```
+npm run build
+```
+
+```
 docker compose up -d
 ```
 
