@@ -1,5 +1,5 @@
-# Dental Care Api
-### Restfull API for the Dental Care app
+# Dental Server Api
+### Restfull API for the Dental App
 <br/>
 
 ### This Api uses a Nginx server for the images of dentists and Redis to store the authentication token in a blacklist when the user logs out of the application
@@ -12,16 +12,16 @@
 <h3>Clone the repository: </h3>
 
 ```
-git clone https://github.com/roberto-pg/dental-care-back
+git clone https://github.com/roberto-pg/dental-server.git dental
 ```
 ```
-cd dental-care-back
+cd dental
 ```
 ```
-yarn
+npm install
 ```
 ```
-touch .env
+nano .env
 ```
 
 </br>
@@ -50,12 +50,43 @@ DIR_IMAGE=http://localhost:8181/
 <br/>
 
 ## Create Docker Containers:
+
 <br/>
+
+### This server uses Nginx to provide still images of the doctors' photos. Install the Nginx container before running docker-compose:
+
+```
+docker run -d --name nginx -p 8080:80 --restart always -v /home/<user>/docker/nginx:/usr/share/nginx/html nginx         
+```
+
+<br/>
+
+### Bitnami's Postgres Container requires permission to access the persistence directory. Create the folder and give access permission:
+
+```
+cd ~/docker
+```
+
+```
+sudo mkdir dental-postgres
+```
+
+```
+sudo chown -R 1001:1001 /home/rpg/docker/dental-postgres
+```
+
+```
+cd ~/dental
+```
+
+<br/>
+
 <h3>Run the command at the root of the project:</h3>
 
 ```
-docker-compose up -d
+docker compose up -d
 ```
+
 ```
 docker ps -a
 ```
@@ -63,41 +94,21 @@ docker ps -a
 <br/>
 <br/>
 
-## Add permissions
-<br/>
-<h3>Bitnami postgres container requires access authorization in local persistence folder</h3>
-<h3>Type the command below into the terminal, and don't forget to change the address according to your docker-compose.yml:</h3>
+<h3>Run Migrations (Inside the report container):</h3>
 
 ```
-sudo chown -R 1001:1001 /home/rpg/Docker/care-postgres
-```
-<br/>
-<h3>If all goes well, there are now four docker containers running.</h3>
-<h3>To verify, type in the terminal: </h3>
-
-```
-docker ps -a
-```
-<br/>
-<h3>To run migrations you have to find out the address of the care-postgres container on the Docker network:</h3>
-
-```
-docker network ls
-```
-```
-docker network inspect <network id>
+docker exec -it dental sh
 ```
 
-<br/>
-<h3>Change the DATABASE_URL in the .env file and run Prisma Migrations at the root of the project::</h3>
+```
+npx prisma migrate dev
+```
 
 ```
-yarn prisma migrate dev
+Ctrl + D
 ```
 
 <br/>
 <br/>
-
-
 
 ## Okay, it's working!

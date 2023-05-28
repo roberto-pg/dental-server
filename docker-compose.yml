@@ -1,15 +1,15 @@
 version: '3'
 
 networks:
-  care:
+  care-net:
     driver: bridge
 
 services:
   postgres:
-    image: bitnami/postgresql:latest
-    container_name: care-postgres
+    image: bitnami/postgresql:15.2.0@sha256:2647d1d05cd48fa494c39a8d717984a5d77590e08967cb2762a6febe2e428643
+    container_name: dental-db
     volumes:
-      - /home/rpg/docker/care-postgres:/bitnami/postgresql
+      - /home/rpg/docker/dental-postgres:/bitnami/postgresql
     restart: always
     environment:
       - POSTGRESQL_POSTGRES_PASSWORD=${DB_PASS_ROOT}
@@ -17,11 +17,11 @@ services:
       - POSTGRESQL_USERNAME=${DB_USER}
       - POSTGRESQL_PASSWORD=${DB_PASS}
     networks:
-      - care
+      - care-net
 
   app:
-    image: node:current-alpine
-    container_name: care-server
+    image: node:current-alpine3.16@sha256:46e58f13212d735aec984e8c0606b2759f86492ccce718ffb3ca3f8c6a0c7ca8
+    container_name: dental
     ports:
       - '3335:3335'
     working_dir: /usr/app
@@ -31,14 +31,14 @@ services:
     command: sh -c "npm start"
     restart: always
     networks:
-      - care
+      - care-net
 
   redis:
-    image: bitnami/redis:latest
-    container_name: care-redis
+    image: bitnami/redis:latest@sha256:ddf4779a4b53e367bb52dd9f3e30daa354c628f5261924458e810070e691fe8a
+    container_name: dental-redis
     environment:
       - ALLOW_EMPTY_PASSWORD=no
       - REDIS_PASSWORD=${REDIS_PASS}
     restart: 'always'
     networks:
-      - care
+      - care-net
