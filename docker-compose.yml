@@ -28,7 +28,7 @@ services:
     volumes:
       - .:/usr/app
       - /home/rpg/docker/nginx/docs:/usr/app/public/images
-    command: sh -c "yarn && yarn build && yarn start"
+    command: sh -c "npm start"
     restart: always
     networks:
       - care

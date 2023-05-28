@@ -6,16 +6,12 @@ interface IPayload {
   sub: string
 }
 
-export async function protectedRoute(
-  request: Request,
-  response: Response,
-  next: NextFunction
-) {
+export async function protectedRoute(request: Request, response: Response, next: NextFunction) {
   const authToken = request.headers.authorization
 
   if (!authToken) {
     return response.status(401).json({
-      errorCode: 'Um token é requerido',
+      errorCode: 'Um token é requerido'
     })
   }
 
