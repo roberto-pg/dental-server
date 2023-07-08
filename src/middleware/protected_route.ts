@@ -11,7 +11,7 @@ export async function protectedRoute(request: Request, response: Response, next:
 
   if (!authToken) {
     return response.status(401).json({
-      errorCode: 'Um token é requerido'
+      Error: 'Um token é requerido'
     })
   }
 
@@ -20,7 +20,7 @@ export async function protectedRoute(request: Request, response: Response, next:
   const disconnected = await verifyBlackListToken(token)
 
   if (disconnected === 1) {
-    return response.status(401).send({ error: 'This token is blacklisted' })
+    return response.status(401).json({ Error: 'This token is blacklisted' })
   }
 
   try {
@@ -29,6 +29,6 @@ export async function protectedRoute(request: Request, response: Response, next:
 
     return next()
   } catch (error) {
-    return response.status(401).json('Token expirado')
+    return response.status(401).json({ Error: 'Token expirado' })
   }
 }
